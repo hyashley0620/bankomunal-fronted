@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beneficios | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/gestion.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon"><i class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.beneficios">Beneficios</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+
+                <div class="ben-hero">
+                    <div>
+                        <h2><span data-i18n="beneficios.hola">¡Hola,</span> <span id="benNombreUsuario">Socio</span>!
+                        </h2>
+                        <p><span data-i18n="beneficios.por_ser">Por ser</span> <strong id="nivelSocio">Socio
+                                Activo</strong>, <span data-i18n="beneficios.beneficios_exclusivos">tienes beneficios
+                                exclusivos este mes.</span>
+                        </p>
+                    </div>
+                    <div class="points-badge">
+                        <div class="pb-val" id="puntosUsuario">0</div>
+                        <div class="pb-lbl" data-i18n="beneficios.puntos_disponibles">Puntos Disponibles</div>
+                    </div>
+                </div>
+
+
+                <div class="ben-kpi-row">
+                    <div class="ben-kpi">
+                        <div class="bv" id="kpiPuntos">0</div>
+                        <div class="bl" data-i18n="beneficios.puntos_acumulados">Puntos acumulados</div>
+                    </div>
+                    <div class="ben-kpi">
+                        <div class="bv u-deccf9" id="kpiTasaEsp">--%</div>
+                        <div class="bl" data-i18n="beneficios.tasa_preferencial">Tasa preferencial</div>
+                    </div>
+                    <div class="ben-kpi">
+                        <div class="bv" id="kpiBenActivos">4</div>
+                        <div class="bl" data-i18n="beneficios.beneficios_activos">Beneficios activos</div>
+                    </div>
+                    <div class="ben-kpi">
+                        <div class="bv" id="kpiAlianzas">12</div>
+                        <div class="bl" data-i18n="beneficios.comercios_aliados">Comercios aliados</div>
+                    </div>
+                </div>
+
+
+                <div class="ben-grid" id="beneficiosContainer">
+                    <div class="ben-card">
+                        <div class="ben-card-top">
+                            <div class="u-5f7e9c">
+                                <div class="ben-ic bi-purple"><i class="fa-solid fa-star"></i></div>
+                                <span class="status-pill st-success u-bc9efe"
+                                    data-i18n="beneficios.popular">Popular</span>
+                            </div>
+                            <h3 data-i18n="beneficios.programa_puntos">Programa de Puntos</h3>
+                            <p data-i18n="beneficios.canjea_puntos">Canjea tus puntos acumulados por productos
+                                financieros o abonos a capital de tu crédito.
+                            </p>
+                        </div>
+                        <div class="ben-card-footer">
+                            <button class="btn-ben-primary" id="btnCanjear">
+                                <i class="fa-solid fa-gift"></i> <span data-i18n="beneficios.canjear_ahora">Canjear
+                                    Ahora</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ben-card">
+                        <div class="ben-card-top">
+                            <div class="ben-ic bi-green"><i class="fa-solid fa-percent"></i></div>
+                            <h3 data-i18n="beneficios.tasa_preferencial_titulo">Tasa Preferencial</h3>
+                            <p><span data-i18n="beneficios.historial_crediticio">Tu excelente historial crediticio te
+                                    otorga una tasa especial de</span> <strong id="tasaEspecial">1.2%</strong> <span
+                                    data-i18n="beneficios.em_proximo_credito">E.M. en tu próximo crédito.</span></p>
+                        </div>
+                        <div class="ben-card-footer">
+                            <button class="btn-ben-secondary" id="btnSolicitar">
+                                <i class="fa-solid fa-paper-plane"></i> <span
+                                    data-i18n="beneficios.solicitar_aplicacion">Solicitar Aplicación</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ben-card">
+                        <div class="ben-card-top">
+                            <div class="ben-ic bi-blue"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <h3 data-i18n="beneficios.academia_bankomunal">Academia Bankomunal</h3>
+                            <p id="proximoTaller" data-i18n="beneficios.talleres_gratuitos">Accede a talleres gratuitos
+                                de educación financiera para socios
+                                activos.</p>
+                        </div>
+                        <div class="ben-card-footer">
+                            <a href="educacion.html" class="btn-ben-outline">
+                                <i class="fa-solid fa-arrow-right"></i> <span data-i18n="beneficios.ver_cursos">Ver
+                                    Cursos</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="ben-card">
+                        <div class="ben-card-top">
+                            <div class="ben-ic bi-yellow"><i class="fa-solid fa-tags"></i></div>
+                            <h3 data-i18n="beneficios.alianzas_estrategicas">Alianzas Estratégicas</h3>
+                            <p data-i18n="beneficios.descuentos_especiales">Descuentos especiales en más de 12 comercios
+                                aliados de nuestra red comunitaria.</p>
+                        </div>
+                        <div class="ben-card-footer">
+                            <button class="btn-ben-outline" id="btnVerCodigos">
+                                <i class="fa-solid fa-store"></i> <span data-i18n="beneficios.ver_alianzas">Ver
+                                    Alianzas</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <section id="historialPuntosSection" class="card u-b06fb3">
+                    <div class="u-e71d2c">
+                        <div>
+                            <h3 class="u-2b06c9"><i class="fa-solid fa-clock-rotate-left"></i> <span
+                                    data-i18n="beneficios.historial_puntos">Historial de Puntos</span></h3>
+                            <p class="welcome-msg u-e4248f" data-i18n="beneficios.como_ganaste">Cómo ganaste y en qué
+                                canjeaste tus puntos.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="common.fecha">Fecha</th>
+                                    <th data-i18n="common.tipo">Tipo</th>
+                                    <th data-i18n="beneficios.puntos">Puntos</th>
+                                    <th data-i18n="common.descripcion">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historialPuntosList">
+                                <tr>
+                                    <td colspan="4" class="u-91f6ff" data-i18n="common.cargando">Cargando...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="adminBeneficiosSection" class="card hidden u-b06fb3">
+                    <div class="u-e71d2c">
+                        <div>
+                            <h3 class="u-2b06c9"><i class="fa-solid"></i> <span
+                                    data-i18n="beneficios.gestion_beneficios_admin">Gestión de Beneficios (Admin)</span>
+                            </h3>
+                            <p class="welcome-msg u-e4248f" data-i18n="beneficios.crea_edita_desactiva">Crea, edita o
+                                desactiva los beneficios del
+                                catálogo.</p>
+                        </div>
+                        <button id="btnNuevoBeneficio" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> <span data-i18n="beneficios.nuevo_beneficio">Nuevo
+                                Beneficio</span>
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="beneficios.titulo">Título</th>
+                                    <th data-i18n="common.tipo">Tipo</th>
+                                    <th data-i18n="beneficios.nivel_minimo">Nivel mínimo</th>
+                                    <th data-i18n="beneficios.tasa_especial">Tasa especial</th>
+                                    <th data-i18n="beneficios.costo_puntos">Costo en puntos</th>
+                                    <th data-i18n="common.estado">Estado</th>
+                                    <th data-i18n="common.acciones">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminBeneficiosList"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

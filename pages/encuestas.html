@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuestas y Votos | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/gestion.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" aria-label="Menú" data-i18n-aria="header.menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <span class="header-title" data-i18n="page.encuestas">Encuestas y Votaciones</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" aria-label="Modo oscuro" title="Cambiar tema"
+                        data-i18n-aria="header.cambiar_tema" data-i18n-title="header.cambiar_tema">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle" aria-label="Notificaciones"
+                            data-i18n-aria="header.notificaciones">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notif-badge hidden" id="notifCount">0</span>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text">
+                            <span id="nombreUsuario" class="user-name">Cargando...</span>
+                            <small id="rolUsuario" class="user-role">...</small>
+                        </div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header">
+                    <div class="u-4ade60">
+                        <div>
+                            <p class="welcome-msg" data-i18n="encuestas.resumen">Participa en las decisiones. Tu voto
+                                cuenta.</p>
+                        </div>
+                        <button class="btn-primary" id="btnToggleCrear">
+                            <i class="fa-solid fa-plus"></i> <span data-i18n="encuestas.nueva_encuesta">Nueva
+                                Encuesta</span>
+                        </button>
+                    </div>
+                </header>
+
+
+                <div class="poll-stats">
+                    <div class="ps-pill">
+                        <div class="val" id="statAbiertas">0</div>
+                        <div class="lbl" data-i18n="encuestas.encuestas_abiertas">Encuestas abiertas</div>
+                    </div>
+                    <div class="ps-pill">
+                        <div class="val" id="statVotadas">0</div>
+                        <div class="lbl" data-i18n="encuestas.has_votado">Has votado en</div>
+                    </div>
+                    <div class="ps-pill">
+                        <div class="val" id="statCerradas">0</div>
+                        <div class="lbl" data-i18n="encuestas.cerradas">Cerradas</div>
+                    </div>
+                    <div class="ps-pill">
+                        <div class="val" id="statCambioRegla">0</div>
+                        <div class="lbl" data-i18n="encuestas.cambios_regla">Cambios de regla</div>
+                    </div>
+                </div>
+
+
+                <div class="create-panel" id="createPanel">
+                    <h2 class="u-e50689"><i class="fa-solid u-035cc8"></i> <span data-i18n="encuestas.crear_nueva">Crear
+                            nueva
+                            encuesta</span></h2>
+                    <form id="pollForm">
+                        <div class="u-458938">
+                            <div class="input-group">
+                                <label data-i18n="encuestas.titulo_req">Título *</label>
+                                <input id="pollTitulo" placeholder="Ej: ¿Aumentamos el fondo común?" required
+                                    data-i18n-placeholder="encuestas.ejemplo_titulo">
+                            </div>
+                            <div class="input-group">
+                                <label data-i18n="encuestas.grupo">Grupo</label>
+                                <select id="pollGrupo" class="select-minimal u-24332b">
+                                    <option value="" data-i18n="encuestas.general_sin_grupo">General (sin grupo)
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group u-9590f7">
+                            <label data-i18n="transferencias.descripcion">Descripción</label>
+                            <textarea id="pollDesc" placeholder="Describe la propuesta o pregunta..."
+                                data-i18n-placeholder="encuestas.describe_propuesta" rows="2"
+                                class="u-993916"></textarea>
+                        </div>
+                        <div class="u-9590f7">
+                            <label class="u-6b4792" data-i18n="encuestas.opciones_respuesta">Opciones de respuesta
+                                *</label>
+                            <div class="opciones-list" id="opcionesList">
+                                <div class="opcion-row"><input class="opcion-input" placeholder="Opción 1"
+                                        data-i18n-placeholder="encuestas.opcion_1" required><button type="button"
+                                        class="btn-del-op">✕</button></div>
+                                <div class="opcion-row"><input class="opcion-input" placeholder="Opción 2"
+                                        data-i18n-placeholder="encuestas.opcion_2" required><button type="button"
+                                        class="btn-del-op">✕</button></div>
+                            </div>
+                            <button type="button" class="btn-secondary u-e09639" id="btnAddOpcion">
+                                <i class="fa-solid fa-plus"></i> <span data-i18n="encuestas.agregar_opcion">Agregar
+                                    opción</span>
+                            </button>
+                        </div>
+                        <div class="u-b0afec">
+                            <label class="u-702b0c">
+                                <input type="checkbox" id="pollAnonima" class="u-078061"> <span
+                                    data-i18n="encuestas.votacion_anonima">Votación anónima</span>
+                            </label>
+                            <label class="u-702b0c">
+                                <input type="checkbox" id="pollCambioRegla" class="u-078061"> <span
+                                    data-i18n="encuestas.es_cambio_regla">Es cambio de regla del
+                                    grupo</span>
+                            </label>
+                        </div>
+                        <div class="input-group u-9590f7">
+                            <label><span data-i18n="encuestas.fecha_hora_cierre">Fecha y hora de cierre</span> <span
+                                    class="u-a4c1ea" data-i18n="encuestas.opcional_guion">— Opcional</span></label>
+                            <input type="datetime-local" id="pollFechaCierre" class="u-c3b421">
+                        </div>
+                        <div id="umbralRow" class="input-group u-40f099">
+                            <label><span data-i18n="encuestas.umbral_aprobacion">Umbral de aprobación (%)</span> <span
+                                    class="u-d7cc9d" data-i18n="encuestas.minimo_votos">— Mínimo de votos para
+                                    aprobar</span></label>
+                            <input type="number" id="pollUmbral" value="51" min="1" max="100" class="u-8c92ab">
+                        </div>
+                        <div class="u-1690c5">
+                            <button type="button" class="btn-secondary" id="btnCancelarCrear"
+                                data-i18n="common.cancelar">Cancelar</button>
+                            <button type="submit" class="btn-primary" id="btnCrearPoll">
+                                <i class="fa-solid fa-paper-plane"></i> <span
+                                    data-i18n="encuestas.publicar_encuesta">Publicar encuesta</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="poll-search-bar">
+                    <input type="search" id="buscarPoll" placeholder="Buscar encuesta..."
+                        data-i18n-placeholder="encuestas.buscar_encuesta">
+                </div>
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="todas" data-i18n="common.todos">Todas</button>
+                    <button class="tab-btn" data-tab="abiertas" data-i18n="encuestas.abiertas">Abiertas</button>
+                    <button class="tab-btn" data-tab="cerradas" data-i18n="encuestas.cerradas">Cerradas</button>
+                    <button class="tab-btn" data-tab="cambioregla" data-i18n="encuestas.cambio_de_regla">Cambio de
+                        Regla</button>
+                </div>
+
+
+                <div class="polls-grid" id="pollsGrid">
+                    <div class="u-331806">
+                        <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+                        <p class="u-102753" data-i18n="encuestas.cargando_encuestas">Cargando encuestas...</p>
+                    </div>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <div id="toast" class="toast-container"></div>
+
+    <div class="vote-modal-overlay" id="voteModal">
+        <div class="vote-modal-box">
+            <div class="vote-modal-header">
+                <strong id="vModalTitulo" class="u-8db147"></strong>
+                <button id="closeVoteModal" class="btn-icon u-5b20e6">&times;</button>
+            </div>
+            <div class="vote-modal-body">
+                <p id="vModalDesc" class="u-066c1d"></p>
+                <p id="vModalGrupo" class="u-16379c"></p>
+                <p id="vModalMeta" class="u-ace9c6"></p>
+                <div id="vModalOpciones"></div>
+            </div>
+            <div class="vote-modal-footer">
+                <button class="btn-secondary" id="btnCancelarVoto" data-i18n="common.cancelar">Cancelar</button>
+                <button class="btn-primary" id="btnConfirmarVoto">
+                    <i class="fa-solid fa-check-to-slot"></i> <span data-i18n="encuestas.confirmar_voto">Confirmar
+                        Voto</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/encuestas.js"></script>
+</body>
+
+</html>

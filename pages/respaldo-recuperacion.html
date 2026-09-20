@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respaldo y Recuperación | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/gestion.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" data-i18n-aria="header.menu"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.respaldo_recuperacion">Respaldo y Recuperación</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-ece551">
+                    <div>
+                        <p class="welcome-msg" data-i18n="rb.resumen">Gestiona los puntos de restauración y la
+                            redundancia de datos en tiempo
+                            real.</p>
+                    </div>
+                    <button class="btn-primary" id="btnIniciarBackup">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> <span data-i18n="rb.ejecutar_backup">Ejecutar Backup
+                            Manual</span>
+                    </button>
+                </header>
+
+
+                <div class="rb-kpi-row">
+                    <div class="rb-kpi">
+                        <div class="rk-ic green"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="rk-txt">
+                            <div class="val" id="kpiTotalBackups">--</div>
+                            <div class="lbl" data-i18n="rb.backups_totales">Backups totales</div>
+                        </div>
+                    </div>
+                    <div class="rb-kpi">
+                        <div class="rk-ic blue"><i class="fa-solid fa-cloud"></i></div>
+                        <div class="rk-txt">
+                            <div class="val" id="kpiStorageUsed">--</div>
+                            <div class="lbl" data-i18n="rb.almacenamiento_usado">Almacenamiento usado</div>
+                        </div>
+                    </div>
+                    <div class="rb-kpi">
+                        <div class="rk-ic yellow"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="rk-txt">
+                            <div class="val" id="kpiUltimoBackup">--</div>
+                            <div class="lbl" data-i18n="rb.ultimo_backup">Último backup</div>
+                        </div>
+                    </div>
+                    <div class="rb-kpi">
+                        <div class="rk-ic green"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="rk-txt">
+                            <div class="val u-deccf9" id="kpiEstadoCore">OK</div>
+                            <div class="lbl" data-i18n="rb.estado_core">Estado del core</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="rb-layout">
+
+                    <section class="card">
+                        <div class="u-3c7b29">
+                            <h3 class="u-ddcd3e">
+                                <i class="fa-solid fa-clock-rotate-left u-035cc8"></i> <span
+                                    data-i18n="rb.historial_puntos_control">Historial de Puntos de Control</span>
+                            </h3>
+                            <button id="btnRefreshBackups" class="btn-secondary u-bfd2d1">
+                                <i class="fa-solid fa-rotate-right"></i> <span
+                                    data-i18n="analisis.actualizar">Actualizar</span>
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="modern-table">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="rb.fecha_creacion">Fecha de Creación</th>
+                                        <th data-i18n="rb.id_version">ID Versión</th>
+                                        <th data-i18n="rb.responsable">Responsable</th>
+                                        <th data-i18n="rb.metodo">Método</th>
+                                        <th data-i18n="rb.tamano">Tamaño</th>
+                                        <th data-i18n="common.estado">Estado</th>
+                                        <th class="text-right" data-i18n="common.acciones">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="backupHistory">
+                                    <tr>
+                                        <td colspan="7" class="text-center py-20 u-5b795a">
+                                            <i class="fa-solid fa-spinner fa-spin"></i> <span
+                                                data-i18n="rb.consultando_registros">Consultando registros...</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+
+                    <aside>
+                        <div class="card u-9590f7">
+                            <div class="u-45e450" data-i18n="rb.capacidad_utilizada">Capacidad Utilizada</div>
+                            <div class="u-f055aa">
+                                <span id="usedCapacityPercent" class="u-e634e6">--% <span data-i18n="rb.del_total">del
+                                        total</span></span>
+                                <span id="storageDetails" class="u-5b795a">-- / -- GB</span>
+                            </div>
+                            <div class="storage-bar">
+                                <div class="storage-fill u-9c33ea" id="mainStorageBar"></div>
+                            </div>
+                        </div>
+
+                        <div class="card u-9590f7">
+                            <div class="u-bc6727" data-i18n="rb.proximo_respaldo">Próximo Respaldo</div>
+                            <div id="nextBackupInfo" class="u-2f8c76">
+                                <i class="fa-regular fa-calendar-check u-035cc8"></i>
+                                <span data-i18n="rb.pendiente_programar">Pendiente de programar</span>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="u-bc6727" data-i18n="rb.estado_sistema">Estado del Sistema</div>
+                            <div class="u-2cd5d9">
+                                <div class="u-a16470">
+                                    <span class="status-dot dot-green" id="dotBaseDatos"></span><span
+                                        data-i18n="rb.base_datos">Base de datos:</span> <strong id="valorBaseDatos"
+                                        class="u-0831ab" data-i18n="rb.activa">Activa</strong>
+                                </div>
+                                <div class="u-a16470">
+                                    <span class="status-dot dot-green" id="dotEncriptacion"></span><span
+                                        data-i18n="rb.encriptacion_aes">Encriptación AES-256:</span> <strong
+                                        id="valorEncriptacion" class="u-0831ab">Verificando...</strong>
+                                </div>
+                                <div class="u-a16470">
+                                    <span class="status-dot u-d92dad" id="dotIntegridad"></span><span
+                                        data-i18n="rb.integridad">Integridad del último respaldo:</span> <strong
+                                        id="systemStatus" class="u-0831ab"
+                                        data-i18n="rb.verificando">Verificando...</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="rb.footer_copy">&copy; 2026 Bankomunal. Seguridad garantizada bajo protocolo AES-256.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/paginas.js"></script>
+    <script src="../js/respaldo.js"></script>
+</body>
+
+</html>

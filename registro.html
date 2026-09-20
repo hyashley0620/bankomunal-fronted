@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Bankomunal</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/utilities.css">
+</head>
+
+<body class="bg-auth-layout">
+
+    <main class="auth-wrapper">
+        <section class="card auth-card">
+
+            <header class="auth-header">
+                <img src="assets/img/logo.png" alt="Logo Bankomunal" class="auth-logo-img">
+                <div class="auth-brand">
+                    <strong class="brand-name">BANKOMUNAL</strong>
+                    <span class="brand-tagline" data-i18n="nav.subtitulo">Microfinanzas Comunitarias</span>
+                </div>
+            </header>
+
+            <h1 class="auth-title" data-i18n="registro.titulo">Crear cuenta</h1>
+            <p class="auth-subtitle" data-i18n="registro.subtitulo">Completa los datos para unirte a nuestra comunidad
+            </p>
+
+
+            <div class="steps-indicator" id="stepsIndicator">
+                <div class="step-dot active" id="dot1">1</div>
+                <div class="step-line" id="line1"></div>
+                <div class="step-dot" id="dot2">2</div>
+                <div class="step-line" id="line2"></div>
+                <div class="step-dot" id="dot3">3</div>
+            </div>
+
+            <form id="registerForm" novalidate>
+
+
+                <div class="form-step active" id="step1">
+                    <p class="u-cfed26" data-i18n="registro.datos_personales">DATOS PERSONALES</p>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="nombres"><span data-i18n="registro.nombres">Nombres</span> <span
+                                    class="required">*</span></label>
+                            <input type="text" id="nombres" name="nombres" placeholder="Ej. María Elena" required
+                                autocomplete="given-name">
+                        </div>
+                        <div class="field-group">
+                            <label for="apellidos"><span data-i18n="registro.apellidos">Apellidos</span> <span
+                                    class="required">*</span></label>
+                            <input type="text" id="apellidos" name="apellidos" placeholder="Ej. Rodríguez Pérez"
+                                required autocomplete="family-name">
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="tipoDoc"><span data-i18n="registro.tipo_documento">Tipo de documento</span>
+                                <span class="required">*</span></label>
+                            <select id="tipoDoc" name="tipoDocumento" required>
+                                <option value="" data-i18n="registro.seleccionar">Seleccionar…</option>
+                                <option value="CC" data-i18n="registro.doc_cc">Cédula de Ciudadanía</option>
+                                <option value="CE" data-i18n="registro.doc_ce">Cédula de Extranjería</option>
+                                <option value="PP" data-i18n="registro.doc_pp">Pasaporte</option>
+                                <option value="TI" data-i18n="registro.doc_ti">Tarjeta de Identidad</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label for="documento"><span data-i18n="registro.numero_documento">Número de
+                                    documento</span> <span class="required">*</span></label>
+                            <input type="text" id="documento" name="documentId" placeholder="Ej. 1234567890" required
+                                inputmode="numeric" data-solo-numeros maxlength="15">
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="fechaNacimiento"><span data-i18n="registro.fecha_nacimiento">Fecha de
+                                    nacimiento</span> <span class="required">*</span></label>
+                            <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                        </div>
+                        <div class="field-group">
+                            <label for="genero" data-i18n="registro.genero">Género</label>
+                            <select id="genero" name="genero">
+                                <option value="" data-i18n="registro.prefiero_no_decir">Prefiero no decir</option>
+                                <option value="M" data-i18n="registro.masculino">Masculino</option>
+                                <option value="F" data-i18n="registro.femenino">Femenino</option>
+                                <option value="O" data-i18n="registro.otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="telefono"><span data-i18n="registro.telefono">Teléfono / Celular</span> <span
+                                class="required">*</span></label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej. +57 300 123 4567" required
+                            inputmode="numeric" data-solo-numeros maxlength="15" autocomplete="tel">
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-step-next" id="btnNext1">
+                            <span data-i18n="registro.continuar">Continuar</span> <i
+                                class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <p class="reg-error-msg mensaje-status error-text mt-10" hidden></p>
+                </div>
+
+
+                <div class="form-step" id="step2">
+                    <p class="u-cfed26" data-i18n="registro.direccion_acceso">DIRECCIÓN Y ACCESO</p>
+
+                    <div class="field-group">
+                        <label for="email"><span data-i18n="login.email">Correo electrónico</span> <span
+                                class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required
+                            autocomplete="email">
+                    </div>
+
+                    <div class="field-group">
+                        <label for="direccion"><span data-i18n="registro.direccion">Dirección de residencia</span> <span
+                                class="required">*</span></label>
+                        <input type="text" id="direccion" name="direccion" placeholder="Calle, número, barrio" required>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="ciudad"><span data-i18n="registro.ciudad">Ciudad</span> <span
+                                    class="required">*</span></label>
+                            <input type="text" id="ciudad" name="ciudad" placeholder="Ej. Bogotá" required>
+                        </div>
+                        <div class="field-group">
+                            <label for="departamento"><span data-i18n="registro.departamento">Departamento</span> <span
+                                    class="required">*</span></label>
+                            <input type="text" id="departamento" name="departamento" placeholder="Ej. Cundinamarca">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="ocupacion"><span data-i18n="registro.ocupacion">Ocupación / Actividad
+                                económica</span> <span class="required">*</span></label>
+                        <select id="ocupacion" name="ocupacion">
+                            <option value="" data-i18n="registro.seleccionar">Seleccionar…</option>
+                            <option value="empleado" data-i18n="registro.ocup_empleado">Empleado / Asalariado</option>
+                            <option value="independiente" data-i18n="registro.ocup_independiente">Trabajador
+                                independiente</option>
+                            <option value="empresario" data-i18n="registro.ocup_empresario">Empresario / Comerciante
+                            </option>
+                            <option value="agricultor" data-i18n="registro.ocup_agricultor">Agricultor / Ganadero
+                            </option>
+                            <option value="estudiante" data-i18n="registro.ocup_estudiante">Estudiante</option>
+                            <option value="pensionado" data-i18n="registro.ocup_pensionado">Pensionado / Jubilado
+                            </option>
+                            <option value="otro" data-i18n="registro.otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="password"><span data-i18n="login.password">Contraseña</span> <span
+                                class="required">*</span></label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres"
+                                required autocomplete="new-password">
+                            <i class="fa-solid fa-eye toggle-pass" id="togglePwd"></i>
+                        </div>
+                        <span class="helper-text" data-i18n="registro.password_helper">Mínimo 8 caracteres, incluya
+                            letras y números.</span>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="password2"><span data-i18n="registro.confirmar_password">Confirmar contraseña</span>
+                            <span class="required">*</span></label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password2" name="passwordConfirm"
+                                placeholder="Repite la contraseña" required autocomplete="new-password"
+                                data-confirmar="password">
+                        </div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-step-prev" id="btnPrev2">
+                            <i class="fa-solid fa-arrow-left"></i> <span data-i18n="registro.atras">Atrás</span>
+                        </button>
+                        <button type="button" class="btn-step-next" id="btnNext2">
+                            <span data-i18n="registro.continuar">Continuar</span> <i
+                                class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <p class="reg-error-msg mensaje-status error-text mt-10" hidden></p>
+                </div>
+
+
+                <div class="form-step" id="step3">
+                    <p class="u-cfed26" data-i18n="registro.documentos_identidad">DOCUMENTOS DE IDENTIDAD</p>
+
+                    <div class="field-group">
+                        <label><span data-i18n="registro.foto_frontal">Foto frontal de la cédula</span> <span
+                                class="required">*</span></label>
+                        <div class="upload-zone" id="uploadFrontal" data-trigger="cedula_frontal">
+                            <input type="file" id="cedula_frontal" name="cedula_frontal" accept="image/*,.pdf"
+                                capture="environment">
+                            <div class="upload-icon"><i class="fa-regular fa-id-card"></i></div>
+                            <div class="upload-label">
+                                <strong data-i18n="registro.toca_subir">Toca para subir</strong> <span
+                                    data-i18n="registro.o_arrastra"> o arrastra la imagen</span><br>
+                                <span data-i18n="registro.parte_frontal">Parte frontal — JPG, PNG o PDF, máx. 5
+                                    MB</span>
+                            </div>
+                            <div class="upload-preview" id="previewFrontal">
+                                <img id="imgFrontal" src="" alt="Vista previa frontal">
+                                <p class="upload-filename" id="nameFrontal"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label><span data-i18n="registro.foto_posterior">Foto posterior de la cédula</span> <span
+                                class="required">*</span></label>
+                        <div class="upload-zone" id="uploadPosterior" data-trigger="cedula_posterior">
+                            <input type="file" id="cedula_posterior" name="cedula_posterior" accept="image/*,.pdf"
+                                capture="environment">
+                            <div class="upload-icon"><i class="fa-regular fa-id-card u-25af4f"></i></div>
+                            <div class="upload-label">
+                                <strong data-i18n="registro.toca_subir">Toca para subir</strong> <span
+                                    data-i18n="registro.o_arrastra"> o arrastra la imagen</span><br>
+                                <span data-i18n="registro.parte_posterior">Parte posterior — JPG, PNG o PDF, máx. 5
+                                    MB</span>
+                            </div>
+                            <div class="upload-preview" id="previewPosterior">
+                                <img id="imgPosterior" src="" alt="Vista previa posterior">
+                                <p class="upload-filename" id="namePosterior"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label><span data-i18n="registro.selfie">Selfie sosteniendo la cédula</span> <span
+                                class="u-093dbd" data-i18n="registro.opcional_recomendado">(opcional pero
+                                recomendado)</span></label>
+                        <div class="upload-zone" id="uploadSelfie" data-trigger="selfie_cedula">
+                            <input type="file" id="selfie_cedula" name="selfie_cedula" accept="image/*" capture="user">
+                            <div class="upload-icon"><i class="fa-solid fa-camera"></i></div>
+                            <div class="upload-label">
+                                <strong data-i18n="registro.tomar_foto">Tomar foto</strong> <span
+                                    data-i18n="registro.o_subir_galeria"> o subir desde galería</span>
+                            </div>
+                            <div class="upload-preview" id="previewSelfie">
+                                <img id="imgSelfie" src="" alt="Vista previa selfie">
+                                <p class="upload-filename" id="nameSelfie"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="auth-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terminos" name="terms" required>
+                            <span class="terms-text">
+                                <span data-i18n="registro.acepto">Acepto los</span> <a href="#" id="openTerms"
+                                    class="forgot-link" data-i18n="registro.terminos">términos y condiciones</a>
+                                <span data-i18n="registro.y_la">y la</span> <a href="#" id="openPrivacidad"
+                                    class="forgot-link" data-i18n="registro.politica_privacidad">política de
+                                    privacidad</a>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="auth-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="autorizaDatos" name="autorizaDatos" required>
+                            <span class="terms-text" data-i18n="registro.autorizo_datos">Autorizo el tratamiento de mis
+                                datos personales conforme a la ley.</span>
+                        </label>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-step-prev" id="btnPrev3">
+                            <i class="fa-solid fa-arrow-left"></i> <span data-i18n="registro.atras">Atrás</span>
+                        </button>
+                        <button type="submit" class="btn-step-next" id="btnRegisterSubmit">
+                            <i class="fa-solid fa-user-plus"></i> <span
+                                data-i18n="registro.registrarse">Registrarse</span>
+                        </button>
+                    </div>
+
+                    <div id="registerStatus" class="mt-20">
+                        <p id="errorRegister" class="mensaje-status error-text" hidden></p>
+                    </div>
+                </div>
+
+            </form>
+
+            <footer class="auth-footer">
+                <nav class="auth-navigation">
+                    <p><span data-i18n="registro.ya_tienes">¿Ya tienes cuenta?</span> <a href="login.html"
+                            class="register-link" data-i18n="registro.iniciar_sesion">Inicia sesión</a></p>
+                </nav>
+                <p data-i18n="login.copyright">&copy; 2026 Bankomunal. Todos los derechos reservados.</p>
+            </footer>
+
+        </section>
+    </main>
+
+
+    <div id="modalTerminos" class="modal-overlay hidden">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2 data-i18n="registro.terminos_titulo">Términos de Bankomunal</h2>
+                <button id="closeModal" class="btn-close">&times;</button>
+            </header>
+            <div class="modal-body">
+                <p><span data-i18n="registro.bienvenido">Bienvenido a</span> <strong>Bankomunal</strong>. <span
+                        data-i18n="registro.al_unirte">Al unirte, aceptas:</span></p>
+                <h4 class="u-967225" data-i18n="registro.t1_titulo">1. Compromiso Comunitario</h4>
+                <p data-i18n="registro.t1_texto">Apoyo mutuo y gestión responsable de recursos financieros comunitarios.
+                </p>
+                <h4 class="u-967225" data-i18n="registro.t2_titulo">2. Veracidad de Datos</h4>
+                <p data-i18n="registro.t2_texto">Toda la información y documentación proporcionada debe ser real y
+                    válida.</p>
+                <h4 class="u-967225" data-i18n="registro.t3_titulo">3. Uso de Documentos</h4>
+                <p data-i18n="registro.t3_texto">Las imágenes de cédula se usan exclusivamente para verificar identidad
+                    conforme a la normativa vigente.</p>
+                <h4 class="u-967225" data-i18n="registro.t4_titulo">4. Seguridad</h4>
+                <p data-i18n="registro.t4_texto">Tus datos están protegidos bajo cifrado y no serán compartidos con
+                    terceros sin tu consentimiento.</p>
+                <h4 class="u-967225" data-i18n="registro.t5_titulo">5. Responsabilidad</h4>
+                <p data-i18n="registro.t5_texto">No compartir credenciales con terceros. Eres responsable de la
+                    actividad en tu cuenta.</p>
+            </div>
+            <footer class="modal-footer">
+                <button id="acceptTermsBtn" class="btn-primary btn-full"
+                    data-i18n="registro.entendido_aceptar">Entendido y Aceptar</button>
+            </footer>
+        </div>
+    </div>
+
+    <div id="modalPrivacidad" class="modal-overlay hidden">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2 data-i18n="registro.privacidad_titulo">Política de Privacidad de Bankomunal</h2>
+                <button id="closeModalPrivacidad" class="btn-close" aria-label="Cerrar">&times;</button>
+            </header>
+            <div class="modal-body">
+                <p><span data-i18n="registro.bienvenido">Bienvenido a</span> <strong>Bankomunal</strong>.
+                    <span data-i18n="registro.privacidad_intro">Así protegemos y usamos tu información:</span>
+                </p>
+
+                <h4 class="u-967225" data-i18n="registro.p1_titulo">1. Qué datos recopilamos</h4>
+                <p data-i18n="registro.p1_texto">Datos de identidad (nombre, documento, fecha de nacimiento), contacto
+                    (correo,
+                    teléfono, dirección) y documentos de verificación (fotos de tu cédula) que subes al registrarte.</p>
+
+                <h4 class="u-967225" data-i18n="registro.p2_titulo">2. Para qué los usamos</h4>
+                <p data-i18n="registro.p2_texto">Para verificar tu identidad, gestionar tu cuenta y tus préstamos,
+                    prevenir
+                    fraude, y cumplir con la normativa de microfinanzas comunitarias.</p>
+
+                <h4 class="u-967225" data-i18n="registro.p3_titulo">3. Con quién los compartimos</h4>
+                <p data-i18n="registro.p3_texto">No vendemos ni compartimos tus datos con terceros con fines
+                    comerciales.
+                    Solo los administradores de tu cooperativa pueden acceder a tu información para operar tu cuenta.
+                </p>
+
+                <h4 class="u-967225" data-i18n="registro.p4_titulo">4. Seguridad y retención</h4>
+                <p data-i18n="registro.p4_texto">Tus datos se almacenan cifrados y se conservan mientras tu cuenta esté
+                    activa o según lo exija la ley aplicable a cooperativas financieras.</p>
+
+                <h4 class="u-967225" data-i18n="registro.p5_titulo">5. Tus derechos</h4>
+                <p data-i18n="registro.p5_texto">Puedes solicitar acceder, corregir o eliminar tus datos personales
+                    escribiendo a ayuda@bankomunal.org, salvo la información que debamos conservar por ley.</p>
+            </div>
+            <footer class="modal-footer">
+                <button id="acceptPrivacidadBtn" class="btn-primary btn-full"
+                    data-i18n="registro.entendido_aceptar">Entendido y Aceptar</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

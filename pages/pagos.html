@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagos y Recaudos | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/finanzas.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon"><i class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.pagos">Pagos y Recaudos</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-e50689">
+                    <p class="welcome-msg" data-i18n="pagos.resumen">Paga servicios, cuotas y préstamos desde un solo
+                        lugar.</p>
+                </header>
+
+
+                <div class="pg-kpi-row">
+                    <div class="pg-kpi">
+                        <div class="pk-ic green"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="pk-txt">
+                            <div class="val" id="kpiPagados">$ ---</div>
+                            <div class="lbl" data-i18n="pagos.pagado_mes">Pagado este mes</div>
+                        </div>
+                    </div>
+                    <div class="pg-kpi">
+                        <div class="pk-ic orange"><i class="fa-solid fa-clock"></i></div>
+                        <div class="pk-txt">
+                            <div class="val" id="kpiPendienteTotal">$ ---</div>
+                            <div class="lbl" data-i18n="pagos.pendiente_pagar">Pendiente pagar</div>
+                        </div>
+                    </div>
+                    <div class="pg-kpi">
+                        <div class="pk-ic blue"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="pk-txt">
+                            <div class="val" id="kpiProxPago">---</div>
+                            <div class="lbl" data-i18n="pagos.proximo_vencimiento">Próximo vencimiento</div>
+                        </div>
+                    </div>
+                    <div class="pg-kpi">
+                        <div class="pk-ic purple"><i class="fa-solid fa-receipt"></i></div>
+                        <div class="pk-txt">
+                            <div class="val" id="kpiNumPagos">0</div>
+                            <div class="lbl" data-i18n="pagos.pagos_realizados">Pagos realizados</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pg-layout">
+
+                    <div class="pg-form-card">
+                        <h3><i class="fa-solid u-035cc8"></i> <span data-i18n="pagos.pagar_servicio">Pagar
+                                Servicio</span></h3>
+                        <div class="service-grid">
+                            <div class="svc-chip" data-servicio="energia"><i class="fa-solid fa-bolt"></i><span
+                                    data-i18n="pagos.energia">Energía</span></div>
+                            <div class="svc-chip" data-servicio="agua"><i class="fa-solid fa-droplet"></i><span
+                                    data-i18n="pagos.agua">Agua</span></div>
+                            <div class="svc-chip" data-servicio="gas"><i class="fa-solid fa-fire-flame-curved"></i><span
+                                    data-i18n="pagos.gas">Gas</span></div>
+                            <div class="svc-chip" data-servicio="internet"><i class="fa-solid fa-wifi"></i><span
+                                    data-i18n="pagos.internet">Internet</span></div>
+                            <div class="svc-chip" data-servicio="telefonia"><i class="fa-solid fa-mobile"></i><span
+                                    data-i18n="pagos.telefonia">Telefonía</span></div>
+                            <div class="svc-chip" data-servicio="otro"><i class="fa-solid fa-ellipsis"></i><span
+                                    data-i18n="registro.otro">Otro</span></div>
+                        </div>
+                        <form id="formPagoServicio">
+                            <input type="hidden" id="tipoServicio" value="">
+                            <div class="u-916e3e">
+                                <label class="f-lbl" data-i18n="pagos.numero_referencia">N° Referencia</label>
+                                <input type="text" id="refPago" class="pg-input" placeholder="Ej: 1234567890"
+                                    data-i18n-placeholder="pagos.ejemplo_referencia">
+                                <small class="text-muted u-ca509e" data-i18n="pagos.instrucciones_referencia">
+                                    Selecciona el tipo de servicio arriba y escribe la referencia — te diremos a
+                                    qué factura corresponde.
+                                </small>
+                            </div>
+
+                            <div id="facturaResultado" class="hidden u-5c5d28">
+                                <div class="u-2efdb6">
+                                    <strong id="facturaEmpresa" class="u-727130"></strong>
+                                    <span id="facturaMontoLbl" class="u-1f8ee1"></span>
+                                </div>
+                                <div id="facturaVence" class="u-badad7"></div>
+                            </div>
+                            <p id="facturaError" class="hidden u-c4770b"></p>
+
+                            <div class="u-916e3e">
+                                <label class="f-lbl" data-i18n="pagos.monto_pagar">Monto a Pagar ($)</label>
+                                <input type="text" inputmode="numeric" id="montoPago" class="pg-input money-mask"
+                                    placeholder="Consulta una referencia primero" readonly required
+                                    data-i18n-placeholder="pagos.consulta_referencia">
+                            </div>
+                            <div class="u-9590f7">
+                                <label class="f-lbl" data-i18n="transferencias.cuenta_origen">Cuenta de Origen</label>
+                                <select id="cuentaPago" class="pg-input">
+                                    <option value="" data-i18n="pagos.selecciona_cuenta">Selecciona cuenta</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-primary u-6d5673" id="btnConfirmarPago" disabled>
+                                <i class="fa-solid fa-paper-plane"></i> <span data-i18n="pagos.confirmar_pago">Confirmar
+                                    Pago</span>
+                            </button>
+                        </form>
+                    </div>
+
+
+                    <div class="pg-form-card">
+                        <h3><i class="fa-solid u-2a4cda"></i> <span data-i18n="pagos.pendientes_por_pagar">Pendientes
+                                por Pagar</span></h3>
+                        <div id="listaPagoPendiente">
+                            <div class="u-0330e5">
+                                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                <p class="u-1e1ec4" data-i18n="pagos.consultando">Consultando...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <section class="card">
+                    <div class="u-fd67ed">
+                        <h3 class="u-737ede">
+                            <i class="fa-solid fa-clock-rotate-left u-035cc8"></i> <span
+                                data-i18n="pagos.historial_de_pagos">Historial de Pagos</span>
+                        </h3>
+                        <button data-action="print" class="btn-secondary u-afd6a2">
+                            <i class="fa-solid fa-print"></i> <span data-i18n="pagos.imprimir">Imprimir</span>
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="modern-table" id="tablaPagos">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="common.fecha">Fecha</th>
+                                    <th data-i18n="pagos.servicio_concepto">Servicio / Concepto</th>
+                                    <th data-i18n="common.referencia">Referencia</th>
+                                    <th data-i18n="common.monto">Monto</th>
+                                    <th data-i18n="common.estado">Estado</th>
+                                    <th class="text-right" data-i18n="pagos.comprobante">Comprobante</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historialPagosBody">
+                                <tr>
+                                    <td colspan="6" class="text-center py-20 u-5b795a">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> <span
+                                            data-i18n="pagos.cargando_historial">Cargando historial...</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer class="main-footer">
+                    <p data-i18n="pagos.footer_copy">&copy; 2026 Bankomunal. Pagos protegidos con encriptación SSL.</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+
+    <div id="modalPagarCuota" class="modal-overlay hidden cm-top">
+        <div class="modal-card cm-card-420">
+            <div class="cm-header">
+                <h3 class="cm-title">
+                    <i class="fa-solid"></i> <span data-i18n="pagos.confirmar_pago">Confirmar Pago</span>
+                </h3>
+                <button id="closeModalPagarCuota" class="cm-close-btn">&times;</button>
+            </div>
+            <div class="cm-summary-box">
+                <div class="cm-stack-label" data-i18n="pagos.concepto">Concepto</div>
+                <div class="cm-stack-value" id="mpcConcepto">Cuota Préstamo #—</div>
+                <div class="cm-stack-label cm-stack-label--mt" data-i18n="pagos.vence">Vence</div>
+                <div class="cm-stack-value cm-stack-value--sm" id="mpcFecha">—</div>
+            </div>
+            <div class="cm-total-row">
+                <span class="cm-total-label" data-i18n="pagos.monto_pagar_corto">Monto a pagar</span>
+                <span class="cm-total-value" id="mpcMonto">$ —</span>
+            </div>
+            <div class="cm-field">
+                <label class="cm-field-label" data-i18n="pagos.cuenta_debito">Cuenta de débito</label>
+                <select id="mpcCuenta" class="cm-select">
+                    <option value="" data-i18n="pagos.selecciona_cuenta_puntos">Selecciona cuenta...</option>
+                </select>
+            </div>
+            <div class="cm-actions">
+                <button id="btnCancelarPagoModal" class="btn-secondary" data-i18n="common.cancelar">Cancelar</button>
+                <button id="btnConfirmarPagoModal" class="btn-primary">
+                    <i class="fa-solid fa-check"></i> <span data-i18n="pagos.pagar_ahora">Pagar Ahora</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/finanzas.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

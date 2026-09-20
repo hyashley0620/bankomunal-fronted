@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña | Bankomunal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/utilities.css">
+</head>
+
+<body class="bg-auth-layout">
+
+    <main class="auth-wrapper">
+        <section class="card auth-card" aria-labelledby="titulo-recuperar">
+
+            <header class="auth-header">
+                <img src="assets/img/logo.png" alt="Logo Bankomunal" class="auth-logo-img">
+                <div class="auth-brand">
+                    <strong class="brand-name">BANKOMUNAL</strong>
+                    <span class="brand-tagline" data-i18n="nav.subtitulo">Microfinanzas Comunitarias</span>
+                </div>
+            </header>
+
+            <h1 id="titulo-recuperar" class="auth-title" data-i18n="recuperar.titulo">Recuperar contraseña</h1>
+
+            <p class="helper-text" data-i18n="recuperar.instrucciones">
+                Ingresa tu correo electrónico y te enviaremos un enlace para
+                restablecer tu contraseña.
+            </p>
+
+            <form id="recoverForm" class="form-container" novalidate>
+
+                <div class="field-group">
+                    <label for="user" data-i18n="login.email">Correo electrónico</label>
+                    <input type="email" id="user" name="email" placeholder="ejemplo@correo.com" required
+                        autocomplete="email">
+                </div>
+
+                <button type="submit" class="btn-primary btn-full" id="btnRecover">
+                    <i class="fa-solid fa-paper-plane"></i> <span data-i18n="recuperar.enviar">Enviar
+                        instrucciones</span>
+                </button>
+
+
+                <div id="responseContainer" class="mt-20">
+                    <p id="recoverMsg" class="mensaje-status success-text" hidden></p>
+                    <p id="recoverError" class="mensaje-status error-text" hidden></p>
+                </div>
+
+                <nav class="auth-navigation u-4de99d">
+                    <a href="login.html" class="register-link">
+                        <i class="fa-solid fa-arrow-left"></i> <span data-i18n="recuperar.volver">Volver a iniciar
+                            sesión</span>
+                    </a>
+                </nav>
+
+            </form>
+
+            <footer class="auth-footer">
+                <p data-i18n-html="recuperar.footer">&copy; 2026 Bankomunal. <br> Todos los derechos reservados.</p>
+            </footer>
+
+        </section>
+    </main>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

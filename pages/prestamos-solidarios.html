@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Préstamos Solidarios | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/gestion.css">
+    <link rel="stylesheet" href="../css/datos.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" aria-label="Menú" data-i18n-aria="header.menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <span class="header-title" data-i18n="page.prestamos_solidarios">Préstamos Solidarios</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+
+                <div class="panel-header u-9590f7">
+                    <div>
+                        <p class="welcome-msg" data-i18n="prestsol.subtitulo">
+                            Préstamos financiados por el fondo común de tu grupo, aprobados por votación de los socios.
+                        </p>
+                    </div>
+                    <button id="btnProponer" class="btn-primary">
+                        <i class="fa-solid"></i> <span data-i18n="prestsol.proponer">Proponer préstamo</span>
+                    </button>
+                </div>
+
+                <div class="ht-toolbar u-9590f7">
+                    <label for="selectGrupoPS" class="u-e8d117">
+                        <span data-i18n="prestsol.grupo">Grupo</span>
+                    </label>
+                    <select id="selectGrupoPS" class="u-4694d6"></select>
+                </div>
+
+                <div class="card u-37aaea" id="fondoPSCard">
+                    <div class="u-cf316f">
+                        <div>
+                            <div class="u-67fd48" data-i18n="prestsol.fondo_total">Fondo común total</div>
+                            <div class="u-1f1803" id="fondoPSTotal">-</div>
+                        </div>
+                        <div>
+                            <div class="u-67fd48" data-i18n="prestsol.fondo_comprometido">Comprometido en votación</div>
+                            <div class="u-f8b1c1" id="fondoPSComprometido">-</div>
+                        </div>
+                        <div>
+                            <div class="u-67fd48" data-i18n="prestsol.fondo_disponible">Disponible para proponer</div>
+                            <div class="u-786e42" id="fondoPSDisponible">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ben-grid" id="prestamosSolidariosContainer">
+                    <div class="card u-42bfea">
+                        <span data-i18n="prestsol.selecciona_grupo">Selecciona un grupo para ver sus préstamos
+                            solidarios.</span>
+                    </div>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal: proponer préstamo solidario -->
+    <div class="modal-overlay hidden" id="modalProponer">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 data-i18n="prestsol.proponer">Proponer préstamo solidario</h3>
+                <button class="btn-close" id="cerrarModalProponer">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="u-070ff4" data-i18n="prestsol.aviso_votacion">
+                    Se abrirá una votación entre los socios activos del grupo. Se necesita más del 51% a favor para
+                    aprobarlo.
+                </p>
+                <div class="form-group">
+                    <label data-i18n="prestsol.monto">Monto solicitado</label>
+                    <input type="number" id="inputMontoPS" class="input-field" min="1" step="1000" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="prestsol.plazo">Plazo (meses)</label>
+                    <input type="number" id="inputPlazoPS" class="input-field" min="1" max="36" value="6">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="prestsol.motivo">Motivo</label>
+                    <textarea id="inputMotivoPS" class="input-field" rows="3"
+                        placeholder="Para qué necesitas el préstamo..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelarProponer" data-i18n="common.cancelar">Cancelar</button>
+                <button class="btn-primary" id="confirmarProponer" data-i18n="prestsol.enviar_propuesta">Enviar
+                    propuesta</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast-container"></div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/prestamos-solidarios.js"></script>
+</body>
+
+</html>

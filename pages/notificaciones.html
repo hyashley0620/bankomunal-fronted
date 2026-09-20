@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/datos.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon"><i class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.notificaciones">Notificaciones</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-ece551">
+                    <div>
+                        <p class="welcome-msg" data-i18n="notif.centro_alertas">Centro de alertas y mensajes del
+                            sistema.</p>
+                    </div>
+                    <button id="btnMarcarTodasLeidas" class="btn-secondary u-9ee0bb">
+                        <i class="fa-solid"></i> <span data-i18n="notif.marcar_todas">Marcar todas como leídas</span>
+                    </button>
+                </header>
+
+
+                <div class="ntf-kpi-row">
+                    <div class="ntf-kpi">
+                        <div class="nk-ic blue"><i class="fa-solid fa-bell"></i></div>
+                        <div class="nk-txt">
+                            <div class="val" id="kpiTotalNotif">0</div>
+                            <div class="lbl" data-i18n="notif.total_notificaciones">Total notificaciones</div>
+                        </div>
+                    </div>
+                    <div class="ntf-kpi">
+                        <div class="nk-ic red"><i class="fa-solid fa-circle-exclamation"></i></div>
+                        <div class="nk-txt">
+                            <div class="val" id="kpiNoLeidas">0</div>
+                            <div class="lbl" data-i18n="notif.sin_leer">Sin leer</div>
+                        </div>
+                    </div>
+                    <div class="ntf-kpi">
+                        <div class="nk-ic green"><i class="fa-solid fa-check-circle"></i></div>
+                        <div class="nk-txt">
+                            <div class="val" id="kpiLeidas">0</div>
+                            <div class="lbl" data-i18n="notif.leidas">Leídas</div>
+                        </div>
+                    </div>
+                    <div class="ntf-kpi">
+                        <div class="nk-ic yellow"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="nk-txt">
+                            <div class="val" id="kpiAlertas">0</div>
+                            <div class="lbl" data-i18n="notif.alertas_criticas">Alertas críticas</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="ntf-toolbar">
+                    <input type="search" class="ntf-search" id="buscarNotif" placeholder="Buscar notificación..."
+                        data-i18n-placeholder="notif.buscar_notificacion">
+                    <div class="ntf-filters">
+                        <button class="ntf-pill active" data-filter="todas" data-i18n="common.todos">Todas</button>
+                        <button class="ntf-pill" data-filter="pagos" data-i18n="notif.pagos">Pagos</button>
+                        <button class="ntf-pill" data-filter="prestamos" data-i18n="nav.prestamos">Préstamos</button>
+                        <button class="ntf-pill" data-filter="seguridad" data-i18n="nav.seguridad">Seguridad</button>
+                        <button class="ntf-pill" data-filter="sistema" data-i18n="notif.sistema">Sistema</button>
+                    </div>
+                </div>
+
+
+                <div class="ntf-list" id="notificacionesList">
+                    <div class="u-d487a3">
+                        <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+                        <p class="u-102753" data-i18n="notif.cargando_notificaciones">Cargando notificaciones...</p>
+                    </div>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/notificaciones.js"></script>
+</body>
+
+</html>

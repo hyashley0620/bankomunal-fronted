@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat de Soporte | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/soporte.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" data-i18n-aria="header.menu"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.chat_soporte">Chat de Soporte</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-fe71ab">
+                    <div>
+                        <p class="welcome-msg" data-i18n="chat.resumen">Asistencia en tiempo real con nuestro equipo.
+                        </p>
+                    </div>
+                    <button data-nav="soporte-tecnico.html" class="btn-secondary u-9ee0bb">
+                        <i class="fa-solid fa-ticket"></i> <span data-i18n="chat.crear_ticket">Crear Ticket</span>
+                    </button>
+                </header>
+
+
+                <div class="chat-kpi-strip">
+                    <div class="ck-pill"><i class="fa-solid fa-circle u-4d3564"></i><span
+                            data-i18n="chat.soporte">Soporte</span><span class="cpv" data-i18n="chat.en_linea">En
+                            línea</span></div>
+                    <div class="ck-pill"><i class="fa-solid fa-clock u-035cc8"></i><span
+                            data-i18n="chat.respuesta_dos">Respuesta:</span><span class="cpv">~2 min</span></div>
+                    <div class="ck-pill"><i class="fa-solid fa-star u-2a4cda"></i><span
+                            data-i18n="chat.satisfaccion">Satisfacción:</span><span class="cpv">4.8/5</span></div>
+                    <div class="ck-pill"><i class="fa-solid fa-headset u-035cc8"></i><span>24/7</span><span
+                            class="cpv u-deccf9" data-i18n="chat.disponible">Disponible</span></div>
+                </div>
+
+
+                <div class="chat-wrapper">
+
+                    <div class="chat-bar">
+                        <div class="chat-agent">
+                            <div class="bot-av">
+                                <i class="fa-solid fa-robot"></i>
+                                <span class="online-dot"></span>
+                            </div>
+                            <div class="agent-info">
+                                <div class="aname" id="agentNameDisplay" data-i18n="chat.asistente_bankomunal">Asistente
+                                    Bankomunal</div>
+                                <div class="astatus" id="agentStatusText"><i class="fa-solid fa-circle u-d9303a"></i>
+                                    <span data-i18n="chat.en_linea_ahora">En
+                                        línea ahora</span></div>
+                            </div>
+                        </div>
+                        <button id="goToTickets" class="btn-secondary u-1df1bf">
+                            <i class="fa-solid fa-ticket"></i> <span data-i18n="sop.mis_tickets">Mis Tickets</span>
+                        </button>
+                        <button id="endChatBtn" class="btn-secondary u-1df1bf">
+                            <i class="fa-solid fa-phone-slash"></i> <span data-i18n="chat.finalizar">Finalizar</span>
+                        </button>
+                    </div>
+
+
+                    <div class="quick-replies">
+                        <button class="qr-btn" data-msg="¿Cómo solicito un préstamo?" data-i18n="chat.qr_prestamo">💰
+                            Solicitar préstamo</button>
+                        <button class="qr-btn" data-msg="Tuve un problema con una transferencia"
+                            data-i18n="chat.qr_problema_transferencia">⚠️ Problema
+                            transferencia</button>
+                        <button class="qr-btn" data-msg="¿Cuál es mi saldo actual?" data-i18n="chat.qr_saldo">💳
+                            Consultar saldo</button>
+                        <button class="qr-btn" data-msg="Necesito cambiar mi contraseña" data-i18n="chat.qr_password">🔐
+                            Cambiar contraseña</button>
+                    </div>
+
+
+                    <div id="chatBox" class="chat-messages">
+                        <div class="chat-sep"><span data-i18n="chat.hoy">Hoy</span> <span id="chatStartTime"></span>
+                        </div>
+                        <div class="msg-bot">
+
+                        </div>
+                    </div>
+
+
+                    <div class="chat-input-area">
+                        <form id="chatForm" class="chat-form">
+                            <input type="file" id="fileAttachment" accept=".pdf,.jpg,.png" class="u-cb4589">
+                            <button type="button" class="btn-icon u-5cd105" data-trigger="fileAttachment"
+                                title="Adjuntar">
+                                <i class="fa-solid fa-paperclip"></i>
+                            </button>
+                            <input type="text" id="chatInput" placeholder="Escribe un mensaje..."
+                                data-i18n-placeholder="chat.escribe_mensaje" autocomplete="off">
+                            <button type="submit" class="chat-send-btn" id="sendChat">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                        <div class="chat-secure"><i class="fa-solid fa-lock"></i> <span
+                                data-i18n="chat.conversacion_protegida">Conversación protegida con
+                                encriptación SSL</span></div>
+                    </div>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="chat.footer_copy">&copy; 2026 Bankomunal. Soporte Técnico Especializado.</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/soporte.js"></script>
+</body>
+
+</html>

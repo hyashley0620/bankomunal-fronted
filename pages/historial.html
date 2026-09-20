@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Transacciones | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/datos.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon"><i class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.historial">Historial</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-ece551">
+                    <div>
+                        <p class="welcome-msg" data-i18n="historial.resumen">Consulta, filtra y descarga todos tus
+                            movimientos.</p>
+                    </div>
+                    <div class="u-76fec5">
+                        <button id="btnExportCSV" class="btn-secondary u-0de4e7">
+                            <i class="fa-solid fa-file-csv"></i> <span data-i18n="historial.csv">CSV</span>
+                        </button>
+                        <button id="btnExportExcel" class="btn-secondary u-0de4e7">
+                            <i class="fa-solid fa-file-excel"></i> <span data-i18n="historial.excel">Excel</span>
+                        </button>
+                        <button id="btnExportPDF" class="btn-secondary">
+                            <i class="fa-solid fa-file-pdf"></i> <span data-i18n="historial.pdf">PDF</span>
+                        </button>
+                        <a href="historial-analisis.html" class="btn-primary u-2ad3fd">
+                            <i class="fa-solid fa-chart-pie"></i> <span data-i18n="historial.analisis">Análisis</span>
+                        </a>
+                    </div>
+                </header>
+
+
+                <div class="ht-kpi-row">
+                    <div class="ht-kpi">
+                        <div class="hk-ic blue"><i class="fa-solid fa-list"></i></div>
+                        <div class="hk-txt">
+                            <div class="val" id="kpiTotalMovs">0</div>
+                            <div class="lbl" data-i18n="historial.total_movimientos">Total movimientos</div>
+                        </div>
+                    </div>
+                    <div class="ht-kpi">
+                        <div class="hk-ic green"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="hk-txt">
+                            <div class="val" id="kpiTotalIngresos">$---</div>
+                            <div class="lbl" data-i18n="historial.total_ingresos">Total ingresos</div>
+                        </div>
+                    </div>
+                    <div class="ht-kpi">
+                        <div class="hk-ic red"><i class="fa-solid fa-arrow-up"></i></div>
+                        <div class="hk-txt">
+                            <div class="val" id="kpiTotalEgresos">$---</div>
+                            <div class="lbl" data-i18n="historial.total_egresos">Total egresos</div>
+                        </div>
+                    </div>
+                    <div class="ht-kpi">
+                        <div class="hk-ic purple"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <div class="hk-txt">
+                            <div class="val" id="kpiNetoPeriodo">$---</div>
+                            <div class="lbl" data-i18n="historial.neto_periodo">Neto del período</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="ht-toolbar">
+                    <input type="search" id="userInputSearch" placeholder="Buscar descripción, referencia..."
+                        data-i18n-placeholder="historial.buscar_placeholder">
+                    <input type="date" id="fechaInicio">
+                    <input type="date" id="fechaFin">
+                    <select id="filterTipo">
+                        <option value="" data-i18n="historial.todos_tipos">Todos los tipos</option>
+                        <option value="deposit" data-i18n="historial.deposito">Depósito</option>
+                        <option value="withdrawal" data-i18n="historial.retiro">Retiro</option>
+                        <option value="transfer" data-i18n="historial.transferencia_enviada">Transferencia enviada
+                        </option>
+                        <option value="transfer_received" data-i18n="historial.transferencia_recibida">Transferencia
+                            recibida</option>
+                        <option value="loan_payment" data-i18n="historial.pago_prestamo">Pago de préstamo</option>
+                        <option value="service_payment" data-i18n="historial.servicio">Servicio</option>
+                        <option value="adjustment" data-i18n="historial.ajuste">Ajuste</option>
+                    </select>
+                    <button id="btnFiltrar" class="btn-primary u-049ce4">
+                        <i class="fa-solid fa-filter"></i> <span data-i18n="common.filtrar">Filtrar</span>
+                    </button>
+                </div>
+
+                <div class="ht-toolbar u-86b369">
+                    <select id="selectPlantilla" class="u-4694d6">
+                        <option value="" data-i18n="plantillas.sin_plantilla">— Sin plantilla —</option>
+                    </select>
+                    <button id="btnGuardarPlantilla" class="btn-secondary">
+                        <i class="fa-solid fa-floppy-disk"></i> <span data-i18n="plantillas.guardar_como">Guardar
+                            filtros como plantilla</span>
+                    </button>
+                    <button id="btnEliminarPlantilla" class="btn-secondary hidden"
+                        title="Eliminar plantilla seleccionada">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+
+                <section class="card">
+                    <div class="table-responsive">
+                        <table class="modern-table" id="historialTable">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="common.fecha">Fecha</th>
+                                    <th data-i18n="common.tipo">Tipo</th>
+                                    <th data-i18n="common.descripcion">Descripción</th>
+                                    <th data-i18n="common.referencia">Referencia</th>
+                                    <th class="text-right" data-i18n="common.monto">Monto</th>
+                                    <th class="text-right" data-i18n="pagos.comprobante">Comprobante</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historialBody">
+                                <tr>
+                                    <td colspan="6" class="text-center py-20 u-5b795a">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> <span
+                                            data-i18n="pagos.cargando_historial">Cargando historial...</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination-footer">
+                        <div class="pagination-left">
+                            <div class="rows-per-page">
+                                <label data-i18n="historial.filas">Filas:</label>
+                                <select id="rowsPerPage" class="select-mini">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                            <p id="userCounter" class="user-count-text" data-i18n="common.cargando">Cargando...</p>
+                        </div>
+                        <div class="pagination-right">
+                            <div class="pagination-controls">
+                                <button class="btn-page-nav" id="prevPage"><i
+                                        class="fa-solid fa-chevron-left"></i></button>
+                                <div id="pageNumbers" class="page-numbers"></div>
+                                <button class="btn-page-nav" id="nextPage"><i
+                                        class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/reportes-plantillas.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

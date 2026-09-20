@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Préstamos | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/gestion.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" aria-label="Menú" data-i18n-aria="header.menu"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.gestion_prestamos">Gestión de Préstamos</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header">
+                    <div>
+                        <p class="welcome-msg" data-i18n="gp.resumen">Revisa, aprueba o rechaza las solicitudes de
+                            crédito de los socios.</p>
+                    </div>
+                </header>
+
+
+                <div class="usr-kpi-row">
+                    <div class="usr-kpi">
+                        <div class="uk-icon blue"><i class="fa-solid fa-list-check"></i></div>
+                        <div class="uk-text">
+                            <div class="val" id="kpiTotalSolicitudes">0</div>
+                            <div class="lbl" data-i18n="gp.total_solicitudes">Total solicitudes</div>
+                        </div>
+                    </div>
+                    <div class="usr-kpi">
+                        <div class="uk-icon yellow"><i class="fa-solid fa-clock"></i></div>
+                        <div class="uk-text">
+                            <div class="val" id="kpiPrestamosPendientes">0</div>
+                            <div class="lbl" data-i18n="gp.pendientes_revision">Pendientes de revisión</div>
+                        </div>
+                    </div>
+                    <div class="usr-kpi">
+                        <div class="uk-icon green"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="uk-text">
+                            <div class="val" id="kpiPrestamosAprobados">0</div>
+                            <div class="lbl" data-i18n="gp.aprobados_activos">Aprobados / Activos</div>
+                        </div>
+                    </div>
+                    <div class="usr-kpi">
+                        <div class="uk-icon red"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <div class="uk-text">
+                            <div class="val" id="kpiMontoCartera">$ 0</div>
+                            <div class="lbl" data-i18n="gp.monto_total_cartera">Monto total en cartera</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="usr-toolbar">
+                    <input type="search" id="searchPrestamos" placeholder="Buscar por solicitante o # de préstamo..."
+                        data-i18n-placeholder="gp.buscar_placeholder">
+                    <select id="filtroEstadoPrestamo">
+                        <option value="" data-i18n="sop.todos_estados">Todos los estados</option>
+                        <option value="pending" data-i18n="common.pendiente">Pendiente</option>
+                        <option value="approved" data-i18n="gp.aprobado">Aprobado</option>
+                        <option value="active" data-i18n="common.activo">Activo</option>
+                        <option value="rejected" data-i18n="gp.rechazado">Rechazado</option>
+                        <option value="paid" data-i18n="gp.pagado">Pagado</option>
+                        <option value="defaulted" data-i18n="gp.en_mora">En mora</option>
+                    </select>
+                    <button id="btnAbrirOrigenPrestamo" class="btn-primary">
+                        <i class="fa-solid fa-plus"></i> <span data-i18n="gp.registrar_prestamo">Registrar
+                            préstamo</span>
+                    </button>
+                </div>
+
+                <div id="modalOrigenPrestamo" class="modal-overlay u-cb4589">
+                    <div class="modal-content u-ae18a0">
+                        <div class="modal-header">
+                            <h3><i class="fa-solid"></i> <span data-i18n="gp.registrar_prestamo_socio">Registrar
+                                    préstamo para un socio</span></h3>
+                            <button class="btn-close" id="btnCerrarOrigenPrestamo">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-muted u-c0e5f4" data-i18n="gp.texto_presencial">
+                                Para socios que solicitan presencialmente en oficina. Queda pendiente de
+                                aprobación como cualquier otra solicitud.
+                            </p>
+                            <label data-i18n="perfil.socio">Socio</label>
+                            <input type="text" id="origenBuscarSocio" placeholder="Buscar por nombre o email..."
+                                data-i18n-placeholder="comunidad.nombre_email" autocomplete="off">
+                            <div id="origenResultadosSocio" class="u-375400"></div>
+                            <input type="hidden" id="origenSocioId">
+                            <div id="origenSocioSeleccionado" class="hidden u-d9ea0d"></div>
+
+                            <label class="u-482f3c" data-i18n="gp.monto_solicitado_cop">Monto solicitado (COP)</label>
+                            <input type="number" id="origenMonto" min="1" step="1000" placeholder="Ej: 500000">
+
+                            <label class="u-482f3c" data-i18n="simulador.plazo_meses">Plazo (meses)</label>
+                            <input type="number" id="origenPlazo" min="1" max="120" placeholder="Ej: 12">
+
+                            <label class="u-482f3c" data-i18n="gp.motivo_opcional">Motivo (opcional)</label>
+                            <textarea id="origenMotivo" rows="2" placeholder="Ej: Capital de trabajo para negocio"
+                                data-i18n-placeholder="gp.ejemplo_motivo"></textarea>
+
+                            <button id="btnConfirmarOrigenPrestamo" class="btn-primary w-100 u-9dae1d">
+                                <i class="fa-solid fa-check"></i> <span data-i18n="gp.registrar_solicitud">Registrar
+                                    solicitud</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="card">
+                    <div class="table-responsive">
+                        <table class="modern-table" id="tablaPrestamosAdmin">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th data-i18n="gp.solicitante">Solicitante</th>
+                                    <th data-i18n="common.monto">Monto</th>
+                                    <th data-i18n="prestamos.plazo">Plazo</th>
+                                    <th data-i18n="common.estado">Estado</th>
+                                    <th data-i18n="common.acciones">Acciones</th>
+                                    <th data-i18n="admin.detalle">Detalle</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="listaPrestamosActivos">
+                                <tr>
+                                    <td colspan="7" class="text-center py-20"><i
+                                            class="fa-solid fa-spinner fa-spin"></i> <span
+                                            data-i18n="gp.cargando_solicitudes">Cargando solicitudes...</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

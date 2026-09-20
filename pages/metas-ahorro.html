@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metas de Ahorro | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/gestion.css">
+    <link rel="stylesheet" href="../css/datos.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon"><i class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.metas_ahorro">Metas de Ahorro</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+
+                <div class="panel-header u-9590f7">
+                    <div>
+                        <p class="welcome-msg" data-i18n="metas.subtitulo">Ponte una meta, aporta cuando puedas y mira
+                            tu progreso.</p>
+                    </div>
+                    <button id="btnNuevaMeta" class="btn-primary">
+                        <i class="fa-solid fa-plus"></i> <span data-i18n="metas.nueva_meta">Nueva meta</span>
+                    </button>
+                </div>
+
+                <div class="ben-grid" id="metasContainer">
+                    <div class="card u-e9f954">
+                        <span data-i18n="common.cargando">Cargando...</span>
+                    </div>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal: nueva meta -->
+    <div class="modal-overlay hidden" id="modalNuevaMeta">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 data-i18n="metas.nueva_meta">Nueva meta</h3>
+                <button class="btn-close" id="cerrarModalMeta">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label data-i18n="metas.nombre_meta">Nombre de la meta</label>
+                    <input type="text" id="inputNombreMeta" class="input-field"
+                        placeholder="Ej. Vacaciones, colchón de emergencia..."
+                        data-i18n-placeholder="metas.ejemplo_nombre">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="metas.monto_objetivo">Monto objetivo</label>
+                    <input type="number" id="inputMontoMeta" class="input-field" min="1" step="1000" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="metas.fecha_limite_opcional">Fecha límite (opcional)</label>
+                    <input type="date" id="inputFechaMeta" class="input-field">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelarNuevaMeta" data-i18n="common.cancelar">Cancelar</button>
+                <button class="btn-primary" id="confirmarNuevaMeta" data-i18n="common.crear">Crear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: aportar -->
+    <div class="modal-overlay hidden" id="modalAportar">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 data-i18n="metas.aportar_a_meta">Aportar a la meta</h3>
+                <button class="btn-close" id="cerrarModalAportar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="aportarMetaNombre" class="u-9a3976"></p>
+                <div class="form-group">
+                    <label data-i18n="metas.monto_a_aportar">Monto a aportar</label>
+                    <input type="number" id="inputMontoAporte" class="input-field" min="1" step="1000" placeholder="0">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelarAporte" data-i18n="common.cancelar">Cancelar</button>
+                <button class="btn-primary" id="confirmarAporte" data-i18n="metas.aportar">Aportar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast-container"></div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/metas-ahorro.js"></script>
+</body>
+
+</html>

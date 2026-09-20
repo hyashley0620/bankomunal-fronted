@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Virtual | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/finanzas.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+
+
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-body">
+
+
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" aria-label="Menú" data-i18n-aria="header.menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <span class="header-title" data-i18n="page.tarjetavirtual">Tarjeta Virtual</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" aria-label="Modo oscuro" title="Cambiar tema"
+                        data-i18n-aria="header.cambiar_tema" data-i18n-title="header.cambiar_tema">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle" aria-label="Notificaciones"
+                            data-i18n-aria="header.notificaciones">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notif-badge hidden" id="notifCount">0</span>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text">
+                            <span id="nombreUsuario" class="user-name">Cargando...</span>
+                            <small id="rolUsuario" class="user-role">...</small>
+                        </div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+
+            <main class="main-wrapper">
+                <div class="content-body">
+
+                    <header class="content-header u-ece551">
+                        <div>
+                            <p class="welcome-msg" data-i18n="tarjeta.resumen">Tu identidad financiera digital — segura,
+                                rápida y siempre
+                                disponible.</p>
+                        </div>
+                    </header>
+
+
+                    <div class="u-c8cd55">
+                        <div class="u-b3e41b">
+                            <div class="u-175281"><i class="fa-solid fa-wallet"></i></div>
+                            <div>
+                                <div id="tvKpiSaldo" class="u-d14b45">---</div>
+                                <div class="u-28f2ee" data-i18n="dashboard.saldo_disponible">Saldo disponible</div>
+                            </div>
+                        </div>
+                        <div class="u-b3e41b">
+                            <div class="u-a5997d"><i class="fa-solid fa-arrow-up-right-dots"></i></div>
+                            <div>
+                                <div id="tvKpiGastos" class="u-d14b45">---</div>
+                                <div class="u-28f2ee" data-i18n="tarjeta.gastos_mes">Gastos del mes</div>
+                            </div>
+                        </div>
+                        <div class="u-b3e41b">
+                            <div class="u-5fec08"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div>
+                                <div id="tvKpiEstado" class="u-e21207" data-i18n="tarjeta.activa">Activa</div>
+                                <div class="u-28f2ee" data-i18n="tarjeta.estado_tarjeta">Estado tarjeta</div>
+                            </div>
+                        </div>
+                        <div class="u-b3e41b">
+                            <div class="u-900242"><i class="fa-solid fa-calendar-check"></i></div>
+                            <div>
+                                <div id="tvKpiVence" class="u-d14b45">--/--</div>
+                                <div class="u-28f2ee" data-i18n="tarjeta.vencimiento">Vencimiento</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-layout">
+
+
+                        <div class="panel-main">
+                            <section class="card">
+                                <header class="content-header">
+                                    <h2 data-i18n="tarjeta.mi_tarjeta_digital">Mi Tarjeta Digital</h2>
+                                    <p class="text-muted" data-i18n="tarjeta.instrucciones">Haz clic en la tarjeta para
+                                        ver el CVV. Usa los iconos para
+                                        copiar los datos.</p>
+                                </header>
+
+                                <div class="tarjeta-seccion-container">
+
+
+                                    <div class="tarjeta-container" id="cardFlip">
+
+
+                                        <div class="tarjeta-virtual tarjeta-front">
+                                            <div class="card-top">
+                                                <span class="bank-name">BANKOMUNAL</span>
+                                                <i class="fa-brands fa-cc-visa card-logo"></i>
+                                            </div>
+                                            <div class="card-mid">
+                                                <div class="chip"></div>
+                                                <div class="card-number-wrapper">
+                                                    <span id="cardNumberDisplay">**** **** **** ****</span>
+                                                    <button class="btn-copy-mini" title="Copiar número"
+                                                        data-i18n-title="cuentas.copiar_numero" id="btnCopyNumber">
+                                                        <i class="fa-regular fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-bottom">
+                                                <div class="holder">
+                                                    <label data-i18n="tarjeta.tarjeta_habiente">TARJETA HABIENTE</label>
+                                                    <span id="cardHolderDisplay">CARGANDO...</span>
+                                                </div>
+
+                                                <div class="card-saldo-wrap">
+                                                    <label data-i18n="tarjeta.saldo_disponible_mayus">SALDO
+                                                        DISPONIBLE</label>
+                                                    <span id="cardSaldoDisplay">$ --</span>
+                                                </div>
+                                                <div class="expiry">
+                                                    <label data-i18n="tarjeta.vence">VENCE</label>
+                                                    <span id="cardExpiryDisplay">--/--</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="tarjeta-virtual tarjeta-back">
+                                            <div class="magnetic-bar"></div>
+                                            <div class="cvv-section">
+                                                <label data-i18n="tarjeta.cvv_cvc">CVV / CVC</label>
+                                                <div class="cvv-container">
+                                                    <div class="cvv-box" id="cardCvvDisplay">***</div>
+                                                    <button class="btn-copy-mini dark" title="Copiar CVV"
+                                                        data-i18n-title="tarjeta.copiar_cvv" id="btnCopyCvv">
+                                                        <i class="fa-regular fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="legal-text" data-i18n="tarjeta.texto_legal">Uso exclusivo para
+                                                compras digitales. Esta tarjeta es
+                                                personal e intransferible. Reporta cualquier inconveniente a
+                                                ayuda@bankomunal.org</p>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div id="frozenBadge" class="frozen-badge hidden">
+                                        <i class="fa-solid fa-snowflake"></i> <span
+                                            data-i18n="tarjeta.tarjeta_congelada">Tarjeta Congelada</span>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="card-actions-row">
+                                    <button id="btnQRCobrar" class="card-action-btn">
+                                        <i class="fa-solid fa-qrcode"></i>
+                                        <span data-i18n="tarjeta.cobrar_con_qr">Cobrar con QR</span>
+                                    </button>
+                                    <button id="btnQRPagar" class="card-action-btn">
+                                        <i class="fa-solid fa-camera"></i>
+                                        <span data-i18n="tarjeta.pagar_con_qr">Pagar con QR</span>
+                                    </button>
+                                    <button id="btnCompartir" class="card-action-btn">
+                                        <i class="fa-solid fa-share-nodes"></i>
+                                        <span data-i18n="tarjeta.compartir_datos">Compartir datos</span>
+                                    </button>
+                                </div>
+
+                            </section>
+
+
+                            <section class="card card-future-notice">
+                                <div class="future-notice-inner">
+                                    <i class="fa-solid fa-rocket future-icon"></i>
+                                    <div>
+                                        <strong data-i18n="tarjeta.proximamente_titulo">Próximamente: pagos
+                                            externos</strong>
+                                        <p class="text-muted" data-i18n="tarjeta.proximamente_texto">Al conectar
+                                            pasarelas como PSE, Nequi o Daviplata, podrás
+                                            cargar saldo y realizar compras en comercios externos con esta misma
+                                            tarjeta.</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+
+                        <aside class="panel-side">
+                            <section class="card">
+                                <h3 class="label-caps" data-i18n="tarjeta.gestion_seguridad">Gestión de Seguridad</h3>
+                                <div class="btn-group-vertical">
+                                    <button id="btnBloquear" class="btn-primary">
+                                        <i class="fa-solid fa-lock"></i> <span
+                                            data-i18n="tarjeta.congelar_tarjeta">Congelar Tarjeta</span>
+                                    </button>
+                                    <button id="btnSolicitar" class="btn-icon-outline">
+                                        <i class="fa-solid fa-rotate"></i> <span data-i18n="tarjeta.nueva_tarjeta">Nueva
+                                            Tarjeta</span>
+                                    </button>
+                                </div>
+                                <hr>
+                                <div class="security-status-info">
+                                    <p><i class="fa-solid fa-shield-halved"></i> <strong
+                                            data-i18n="tarjeta.proteccion_activa">Protección activa</strong></p>
+                                    <p class="text-muted" data-i18n="tarjeta.info_cifrada">Tu información está cifrada
+                                        con estándares bancarios AES-256.
+                                    </p>
+                                </div>
+                            </section>
+
+                            <section class="card mt-15">
+                                <h3 class="label-caps" data-i18n="tarjeta.datos_tarjeta">Datos de la Tarjeta</h3>
+                                <div class="card-detail-list">
+                                    <div class="card-detail-item">
+                                        <span class="detail-label" data-i18n="tarjeta.titular">Titular</span>
+                                        <span class="detail-value" id="detailHolder">—</span>
+                                    </div>
+                                    <div class="card-detail-item">
+                                        <span class="detail-label" data-i18n="tarjeta.numero">Número</span>
+                                        <span class="detail-value mono" id="detailNumber">—</span>
+                                    </div>
+                                    <div class="card-detail-item">
+                                        <span class="detail-label" data-i18n="tarjeta.vencimiento">Vencimiento</span>
+                                        <span class="detail-value" id="detailExpiry">—</span>
+                                    </div>
+                                    <div class="card-detail-item">
+                                        <span class="detail-label" data-i18n="tarjeta.saldo">Saldo</span>
+                                        <span class="detail-value" id="detailSaldo">—</span>
+                                    </div>
+                                    <div class="card-detail-item">
+                                        <span class="detail-label" data-i18n="common.estado">Estado</span>
+                                        <span class="detail-value" id="detailEstado">
+                                            <span class="status-badge status-success"
+                                                data-i18n="tarjeta.activa">Activa</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </section>
+                        </aside>
+
+                    </div>
+                </div>
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+
+        </div>
+    </div>
+
+    <div id="modalQRCobrar" class="modal-overlay hidden">
+        <div class="modal-card u-47744c">
+            <div class="u-d37425">
+                <h3 class="u-293a6f"><i class="fa-solid fa-qrcode"></i> <span data-i18n="tarjeta.cobrar_con_qr">Cobrar
+                        con QR</span></h3>
+                <button id="closeModalQRCobrar" class="u-e89608">&times;</button>
+            </div>
+            <div class="u-0f8ab6">
+                <div id="qrCobrarCanvas" class="u-bac578"></div>
+                <p id="qrCobrarLabel" class="u-24d014"></p>
+                <button id="btnDescargarQR" class="btn-primary u-6d5673">
+                    <i class="fa-solid fa-download"></i> <span data-i18n="tarjeta.descargar_qr">Descargar QR</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalQRPagar" class="modal-overlay hidden">
+        <div class="modal-card u-ab23d4">
+            <div class="u-d37425">
+                <h3 class="u-293a6f"><i class="fa-solid fa-camera"></i> <span data-i18n="tarjeta.pagar_con_qr">Pagar con
+                        QR</span></h3>
+                <button id="closeModalQRPagar" class="u-e89608">&times;</button>
+            </div>
+            <div class="u-17f595">
+                <div id="qrPagarReader" class="qr-reader-box"></div>
+                <p class="u-74a4d4" data-i18n="tarjeta.apunta_camara_qr">Apunta la cámara al código QR de la otra
+                    persona para iniciar el pago.</p>
+                <div id="qrPagarResult" class="qr-pagar-result"></div>
+            </div>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/finanzas.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

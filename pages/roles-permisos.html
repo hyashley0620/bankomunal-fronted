@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roles y Permisos | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/gestion.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" data-i18n-aria="header.menu"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.roles_permisos">Roles y Permisos</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-ece551">
+                    <div>
+                        <p class="welcome-msg" data-i18n="rp.resumen">Configura privilegios de acceso por rol en el
+                            sistema.</p>
+                    </div>
+                    <div class="u-76fec5">
+                        <button class="btn-secondary u-9ee0bb" id="btnExportarPermisos">
+                            <i class="fa-solid fa-file-pdf"></i> <span data-i18n="salud.exportar">Exportar</span>
+                        </button>
+                        <button class="btn-primary u-9ee0bb" id="btnSavePermissions">
+                            <i class="fa-solid"></i> <span data-i18n="rp.aplicar_cambios">Aplicar Cambios</span>
+                        </button>
+                    </div>
+                </header>
+
+
+                <div class="rp-kpi-row">
+                    <div class="rp-kpi">
+                        <div class="rk-ic blue"><i class="fa-solid fa-users"></i></div>
+                        <div class="rk-txt">
+                            <div class="val" id="totalUsuariosRoles">--</div>
+                            <div class="lbl" data-i18n="usr.total_usuarios">Total usuarios</div>
+                        </div>
+                    </div>
+                    <div class="rp-kpi">
+                        <div class="rk-ic purple"><i class="fa-solid fa-user-shield"></i></div>
+                        <div class="rk-txt">
+                            <div class="val" id="sesionesActivas">--</div>
+                            <div class="lbl" data-i18n="seguridad.sesiones_activas">Sesiones activas</div>
+                        </div>
+                    </div>
+                    <div class="rp-kpi">
+                        <div class="rk-ic red"><i class="fa-solid fa-shield-virus"></i></div>
+                        <div class="rk-txt">
+                            <div class="val" id="intentosFallidos">0</div>
+                            <div class="lbl" data-i18n="rp.bloqueos_24h">Bloqueos (24h)</div>
+                        </div>
+                    </div>
+                    <div class="rp-kpi">
+                        <div class="rk-ic green"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="rk-txt">
+                            <div class="val" id="kpiTotalRoles">--</div>
+                            <div class="lbl" data-i18n="rp.roles_definidos">Roles definidos</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="rp-layout">
+
+                    <aside>
+                        <div class="card">
+                            <div class="u-685d0f">
+                                <span class="u-c71bf9" data-i18n="rp.roles">Roles</span>
+                                <button class="btn-primary u-54668f" id="btnNuevoRol">
+                                    <i class="fa-solid fa-plus"></i> <span data-i18n="rp.nuevo">Nuevo</span>
+                                </button>
+                            </div>
+                            <div id="rolesList">
+                                <p class="u-c2558d" data-i18n="rp.cargando_roles">Cargando roles...</p>
+                            </div>
+                        </div>
+
+
+                        <div class="card u-9dae1d">
+                            <div class="u-bc6727" data-i18n="rf.distribucion_riesgo_alt">Distribución</div>
+                            <div class="u-049d8d">
+                                <canvas id="chartRoles"></canvas>
+                            </div>
+                        </div>
+                    </aside>
+
+
+                    <section class="card">
+                        <div class="u-03489e">
+                            <h3 class="u-30762b">
+                                <span data-i18n="rp.permisos_para">Permisos para:</span> <span id="currentRoleTitle"
+                                    class="u-035cc8" data-i18n="rp.seleccione_rol">Seleccione un rol</span>
+                            </h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="modern-table">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="rp.modulo_sistema">Módulo del Sistema</th>
+                                        <th class="text-center" data-i18n="rp.leer">Leer</th>
+                                        <th class="text-center" data-i18n="rp.crear">Crear</th>
+                                        <th class="text-center" data-i18n="common.editar">Editar</th>
+                                        <th class="text-center" data-i18n="rp.borrar">Borrar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rolesTableBody">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-20 u-5b795a"
+                                            data-i18n="rp.selecciona_rol_matriz">Selecciona un rol para ver su
+                                            matriz de permisos</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/paginas.js"></script>
+
+    <div id="modalRol" class="modal-overlay hidden">
+        <div class="modal-card u-ae18a0">
+            <div class="modal-header">
+                <h3><i class="fa-solid"></i> <span data-i18n="rp.crear_nuevo_rol">Crear Nuevo Rol</span></h3>
+                <button class="btn-close" id="btnCloseRol">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="field-group">
+                    <label data-i18n="rp.nombre_rol_req">Nombre del rol *</label>
+                    <input type="text" id="inputNombreRol" placeholder="Ej: supervisor, tesorero..."
+                        data-i18n-placeholder="rp.ejemplo_rol" required>
+                </div>
+                <div class="field-group">
+                    <label data-i18n="transferencias.descripcion">Descripción</label>
+                    <input type="text" id="inputDescRol" placeholder="Descripción breve del rol"
+                        data-i18n-placeholder="rp.descripcion_breve_rol">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="btnCancelarRol"
+                    data-i18n="common.cancelar">Cancelar</button>
+                <button type="button" class="btn-primary" id="btnConfirmarRol">
+                    <i class="fa-solid"></i> <span data-i18n="rp.crear_rol">Crear Rol</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes Financieros | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/datos.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" aria-label="Menú"><i class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.reportes_financieros">Reportes Financieros</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" aria-label="Modo oscuro" title="Cambiar tema"
+                        data-i18n-aria="header.cambiar_tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle" aria-label="Notificaciones">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notif-badge hidden" id="notifCount">0</span>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text">
+                            <span id="nombreUsuario" class="user-name">Cargando...</span>
+                            <small id="rolUsuario" class="user-role">...</small>
+                        </div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+
+                <div class="report-toolbar">
+                    <div>
+                        <p class="text-muted u-a7560b" data-i18n="rf.resumen">Consolidado dinámico para la toma de
+                            decisiones estratégicas.</p>
+                    </div>
+                    <div class="report-filters">
+                        <label class="u-67fd48" data-i18n="rf.desde">Desde:</label>
+                        <input type="date" id="fechaInicio" class="input-clean-sm">
+                        <label class="u-67fd48" data-i18n="rf.hasta">Hasta:</label>
+                        <input type="date" id="fechaFin" class="input-clean-sm">
+                        <button class="btn-secondary" id="btnFiltrarReporte" title="Actualizar"
+                            data-i18n-title="analisis.actualizar"><i class="fa-solid fa-arrows-rotate"></i></button>
+                        <button class="btn-primary" id="btnExportPDF"><i class="fa-solid fa-file-pdf"></i>
+                            <span data-i18n="salud.exportar">Exportar</span></button>
+                    </div>
+                </div>
+
+
+                <div class="kpi-row">
+                    <div class="kpi-box">
+                        <div class="kpi-icon-box green"><i class="fa-solid fa-vault"></i></div>
+                        <div class="kpi-text">
+                            <div class="lbl" data-i18n="admin.cartera_total">Cartera Total</div>
+                            <div class="val" id="kpiCarteraTotal">---</div>
+                            <div class="trend neutral" id="trendCartera">--%</div>
+                        </div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-icon-box orange"><i class="fa-solid fa-chart-pie"></i></div>
+                        <div class="kpi-text">
+                            <div class="lbl" data-i18n="admin.indice_mora">Índice de Mora</div>
+                            <div class="val" id="kpiIndiceMora">---</div>
+                            <div class="trend neutral" id="trendMora">--%</div>
+                        </div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-icon-box blue"><i class="fa-solid fa-users"></i></div>
+                        <div class="kpi-text">
+                            <div class="lbl" data-i18n="admin.socios_activos">Socios Activos</div>
+                            <div class="val" id="kpiSociosActivos">---</div>
+                            <div class="trend up" id="trendSocios">--</div>
+                        </div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-icon-box purple"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                        <div class="kpi-text">
+                            <div class="lbl" data-i18n="prestamos.creditos_activos_alt">Préstamos Activos</div>
+                            <div class="val" id="kpiPrestamosActivos">---</div>
+                            <div class="trend neutral" data-i18n="salud.este_mes">este mes</div>
+                        </div>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi-icon-box teal"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="kpi-text">
+                            <div class="lbl" data-i18n="admin.tasa_pago">Tasa de Pago</div>
+                            <div class="val" id="kpiTasaPago">---</div>
+                            <div class="trend up" data-i18n="admin.puntualidad">puntualidad</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="charts-grid">
+                    <div class="chart-box">
+                        <h3><i class="fa-solid u-035cc8"></i> <span data-i18n="rf.flujo_financiero_mensual">Flujo
+                                Financiero Mensual</span></h3>
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3><i class="fa-solid u-31549e"></i> <span data-i18n="rf.distribucion_riesgo">Distribución de
+                                Riesgo</span></h3>
+                        <canvas id="distChart"></canvas>
+                    </div>
+                </div>
+
+
+                <section class="card">
+                    <div class="panel-header mb-20">
+                        <h3 class="card-title"><i class="fa-solid fa-clock-rotate-left"></i> <span
+                                data-i18n="rf.historial_reportes_auditados">Historial de Reportes
+                                Auditados</span></h3>
+                        <input type="text" id="userInputSearch" placeholder="Buscar reporte..."
+                            data-i18n-placeholder="rf.buscar_reporte" class="input-clean-sm u-513ea2">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="rf.nombre_reporte">Nombre del Reporte</th>
+                                    <th data-i18n="rf.fecha_generacion">Fecha Generación</th>
+                                    <th data-i18n="rf.estado_control">Estado de Control</th>
+                                    <th class="text-right" data-i18n="common.acciones">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="txBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <div id="toast" class="toast-container"></div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

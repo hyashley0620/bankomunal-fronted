@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajustes | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/datos.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" aria-label="Menú" data-i18n-aria="header.menu"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.configuracion">Ajustes</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" aria-label="Modo oscuro" title="Cambiar tema"
+                        data-i18n-aria="header.cambiar_tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle" aria-label="Notificaciones"
+                            data-i18n-aria="header.notificaciones">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notif-badge hidden" id="notifCount">0</span>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text">
+                            <span id="nombreUsuario" class="user-name">Cargando...</span>
+                            <small id="rolUsuario" class="user-role">...</small>
+                        </div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-e50689">
+                    <p class="welcome-msg" data-i18n="config.resumen">Personaliza tu cuenta, preferencias y seguridad.
+                    </p>
+                </header>
+
+
+                <div class="config-kpi-row">
+                    <div class="config-kpi">
+                        <div class="val" id="kpiMiembro">—</div>
+                        <div class="lbl" data-i18n="config.miembro_desde">Miembro desde</div>
+                    </div>
+                    <div class="config-kpi">
+                        <div class="val" id="kpiRol">—</div>
+                        <div class="lbl" data-i18n="config.rol_actual">Rol actual</div>
+                    </div>
+                    <div class="config-kpi">
+                        <div class="val" id="kpiSesiones">1</div>
+                        <div class="lbl" data-i18n="config.sesion_activa">Sesión activa</div>
+                    </div>
+                    <div class="config-kpi">
+                        <div class="val u-deccf9" id="kpi2FA">✓</div>
+                        <div class="lbl" data-i18n="config.dosfa_activado">2FA activado</div>
+                    </div>
+                </div>
+
+                <div class="config-layout">
+
+                    <nav class="config-nav">
+                        <button class="config-tab active" data-tab="perfil"><i class="fa-solid fa-user"></i>
+                            <span data-i18n="config.perfil">Perfil</span></button>
+                        <button class="config-tab" data-tab="preferencias"><i class="fa-solid fa-palette"></i>
+                            <span data-i18n="config.preferencias">Preferencias</span></button>
+                        <button class="config-tab" data-tab="seguridad"><i class="fa-solid fa-shield-halved"></i>
+                            <span data-i18n="nav.seguridad">Seguridad</span></button>
+                        <button class="config-tab hidden" data-tab="sistema" id="tabSistemaBtn"><i
+                                class="fa-solid fa-gears"></i> <span data-i18n="config.sistema">Sistema</span></button>
+                    </nav>
+
+
+                    <div>
+
+                        <section id="tab-perfil" class="tab-pane active">
+                            <div class="card">
+                                <h3 class="card-title u-900b7b" data-i18n="config.informacion_personal">Información
+                                    Personal</h3>
+                                <p class="text-muted mb-20 u-9ee0bb" data-i18n="config.actualiza_datos">Actualiza tus
+                                    datos de contacto y foto de perfil.
+                                </p>
+
+
+                                <div class="u-1df755">
+                                    <div class="avatar-edit-wrap" data-trigger="fotoInput" title="Cambiar foto">
+                                        <div class="avatar-large" id="avatarPreview">--</div>
+                                        <div class="avatar-overlay"><i class="fa-solid fa-camera"></i></div>
+                                    </div>
+                                    <input type="file" id="fotoInput" accept="image/*" class="u-cb4589">
+                                    <div>
+                                        <div id="nombrePreview" class="u-b84636">Cargando...</div>
+                                        <div id="emailPreview" class="u-67fd48">...</div>
+                                        <button class="btn-secondary u-e6e1aa" data-trigger="fotoInput">
+                                            <i class="fa-solid fa-camera"></i> <span
+                                                data-i18n="config.cambiar_foto">Cambiar foto</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <form id="formConfigPerfil">
+                                    <div class="grid-form">
+                                        <div class="form-group">
+                                            <label data-i18n="config.nombre_completo">Nombre Completo</label>
+                                            <input type="text" id="config-nombre" class="input-field"
+                                                placeholder="Tu nombre">
+                                        </div>
+                                        <div class="form-group">
+                                            <label data-i18n="config.correo_electronico">Correo Electrónico</label>
+                                            <input type="email" id="config-email" class="input-field"
+                                                placeholder="correo@ejemplo.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label data-i18n="registro.telefono_corto">Teléfono</label>
+                                            <input type="text" id="config-telefono" class="input-field"
+                                                placeholder="+57 000 000 0000">
+                                        </div>
+                                        <div class="form-group">
+                                            <label data-i18n="registro.ciudad">Ciudad</label>
+                                            <input type="text" id="config-ciudad" class="input-field"
+                                                placeholder="Tu ciudad">
+                                        </div>
+                                    </div>
+                                    <div class="u-6a4c83">
+                                        <button type="button" class="btn-secondary" data-action="reload"
+                                            data-i18n="common.cancelar">Cancelar</button>
+                                        <button type="submit" class="btn-primary" id="btnGuardarPerfil">
+                                            <i class="fa-solid fa-floppy-disk"></i> <span
+                                                data-i18n="config.guardar_perfil">Guardar Perfil</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+
+
+                        <section id="tab-preferencias" class="tab-pane">
+                            <div class="card">
+                                <h3 class="card-title u-900b7b" data-i18n="config.interfaz_notificaciones">Interfaz y
+                                    Notificaciones</h3>
+                                <p class="text-muted u-b1fd3b" data-i18n="config.personaliza_interaccion">Personaliza
+                                    cómo interactúas con la plataforma.</p>
+
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.modo_oscuro">Modo Oscuro</strong>
+                                        <span data-i18n="config.ajusta_apariencia">Ajusta la apariencia del
+                                            sistema.</span>
+                                    </div>
+                                    <button class="btn-icon u-e1acab" id="themeBtn2" title="Cambiar tema">
+                                        <i class="fa-solid fa-moon u-6c660c"></i>
+                                    </button>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="header.idioma">Idioma</strong>
+                                        <span data-i18n="config.idioma_principal">Idioma principal de la
+                                            plataforma.</span>
+                                    </div>
+                                    <select id="config-idioma" class="input-field u-e45251">
+                                        <option value="es">Español</option>
+                                        <option value="en">English</option>
+                                    </select>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.alertas_saldo_bajo">Alertas de Saldo Bajo</strong>
+                                        <span data-i18n="config.notificar_saldo_bajo">Notificar cuando mi saldo sea
+                                            bajo.</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="config-alerta-saldo" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.notif_email">Notificaciones por Email</strong>
+                                        <span data-i18n="config.recibir_resumenes">Recibir resúmenes y alertas en tu
+                                            correo.</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="config-notif-email" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.notif_push">Notificaciones Push</strong>
+                                        <span data-i18n="config.alertas_tiempo_real">Alertas en tiempo real en el
+                                            navegador.</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="config-notif-push" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong>WhatsApp / SMS</strong>
+                                        <span data-i18n="config.mensajes_confirmacion">Mensajes de confirmación de
+                                            transacciones.</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="config-notif-whatsapp">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="u-4153dc">
+                                    <button class="btn-primary" id="btnGuardarPrefs">
+                                        <i class="fa-solid fa-floppy-disk"></i> <span
+                                            data-i18n="config.guardar_preferencias">Guardar Preferencias</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+
+
+                        <section id="tab-seguridad" class="tab-pane">
+                            <div class="card u-9590f7">
+                                <h3 class="card-title u-9590f7" data-i18n="seguridad.resumen_corto">Protección de Cuenta
+                                </h3>
+                                <ul class="security-check-list">
+                                    <li>
+                                        <i class="fa-solid fa-key u-0152e1"></i>
+                                        <div class="u-da5cd6">
+                                            <strong class="u-579f53" data-i18n="login.password">Contraseña</strong>
+                                            <span class="u-67fd48" data-i18n="config.cambia_periodicamente">Cambia tu
+                                                contraseña periódicamente.</span>
+                                            <div id="seccionPassword" class="hidden u-102753">
+                                                <form id="formCambiarPass">
+                                                    <div class="form-group u-9edd2d">
+                                                        <label data-i18n="config.password_actual">Contraseña
+                                                            actual</label>
+                                                        <input type="password" id="passActual" class="input-field"
+                                                            placeholder="Contraseña actual" required
+                                                            data-i18n-placeholder="config.password_actual">
+                                                    </div>
+                                                    <div class="form-group u-9edd2d">
+                                                        <label data-i18n="reset.nueva_password">Nueva contraseña</label>
+                                                        <input type="password" id="passNueva" class="input-field"
+                                                            placeholder="Mínimo 6 caracteres" required>
+                                                    </div>
+                                                    <div class="form-group u-916e3e">
+                                                        <label data-i18n="config.confirmar_nueva_password">Confirmar
+                                                            nueva contraseña</label>
+                                                        <input type="password" id="passConfirmar" class="input-field"
+                                                            placeholder="Repite la nueva contraseña" required
+                                                            data-i18n-placeholder="config.repite_nueva_password"
+                                                            data-confirmar="passNueva">
+                                                    </div>
+                                                    <button type="submit" class="btn-primary u-a7560b"
+                                                        data-i18n="config.actualizar_password">Actualizar
+                                                        Contraseña</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <button id="btnCambiarPass" class="btn-secondary u-7ef2c0"
+                                            data-i18n="config.cambiar">Cambiar</button>
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-mobile-screen u-05dce2"></i>
+                                        <div class="u-da5cd6">
+                                            <strong class="u-579f53" data-i18n="mfa.titulo">Verificación en dos pasos
+                                                (2FA)</strong>
+                                            <span id="status-2fa" class="text-sm u-721463">
+                                                <i class="fa-solid fa-shield-halved"></i> <span
+                                                    data-i18n="common.cargando">Cargando...</span>
+                                            </span>
+                                            <div id="seccion2FA" class="hidden tfa-box">
+                                                <p data-i18n="config.texto_2fa">
+                                                    La verificación en dos pasos añade una capa extra de seguridad.
+                                                    Al activarla, necesitarás un código adicional al iniciar sesión.
+                                                </p>
+                                                <div class="tfa-actions">
+                                                    <button id="btnActivar2FA" class="btn-primary btn-2fa-action">
+                                                        <i class="fa-solid fa-lock"></i> <span
+                                                            data-i18n="config.activar_2fa">Activar 2FA</span>
+                                                    </button>
+                                                    <button id="btnDesactivar2FA" class="btn-secondary btn-2fa-action">
+                                                        <i class="fa-solid fa-lock-open"></i> <span
+                                                            data-i18n="config.desactivar_2fa">Desactivar 2FA</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button id="btnGestionar2FA" class="btn-secondary u-7ef2c0"
+                                            data-i18n="config.gestionar">Gestionar</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="card u-2388b5">
+                                <h4 class="u-750eb1"><i class="fa-solid fa-triangle-exclamation"></i> <span
+                                        data-i18n="config.zona_peligro">Zona de Peligro</span>
+                                </h4>
+                                <p class="u-156daa" data-i18n="config.accion_irreversible">Esta acción es permanente e
+                                    irreversible.</p>
+                                <button id="btnBorrarCuenta" class="btn-secondary u-a0f2c2">
+                                    <i class="fa-solid fa-user-slash"></i> <span
+                                        data-i18n="config.desactivar_cuenta">Desactivar mi cuenta</span>
+                                </button>
+                            </div>
+                        </section>
+
+                        <section id="tab-sistema" class="tab-pane">
+                            <div class="card">
+                                <h3 class="card-title u-900b7b" data-i18n="config.configuracion_sistema">Configuración
+                                    del Sistema</h3>
+                                <p class="text-muted u-b1fd3b" data-i18n="config.parametros_operativos">Parámetros
+                                    operativos de la cooperativa. Solo visible
+                                    para administradores.</p>
+
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.nombre_cooperativa">Nombre de la cooperativa</strong>
+                                        <span data-i18n="config.aparece_encabezados">Aparece en encabezados y
+                                            comprobantes.</span>
+                                    </div>
+                                    <input type="text" id="sis-nombre" class="input-field u-ac5a41">
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.correo_soporte">Correo de soporte</strong>
+                                        <span data-i18n="config.contacto_mostrado">Contacto mostrado a los
+                                            socios.</span>
+                                    </div>
+                                    <input type="email" id="sis-email" class="input-field u-ac5a41">
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.tasa_min">Tasa de interés mínima (%)</strong>
+                                        <span data-i18n="config.tasa_min_desc">Tasa mensual más baja permitida en
+                                            préstamos.</span>
+                                    </div>
+                                    <input type="number" id="sis-tasa-min" class="input-field u-8c92ab" step="0.1"
+                                        min="0">
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.tasa_max">Tasa de interés máxima (%)</strong>
+                                        <span data-i18n="config.tasa_max_desc">Tasa mensual más alta permitida en
+                                            préstamos.</span>
+                                    </div>
+                                    <input type="number" id="sis-tasa-max" class="input-field u-8c92ab" step="0.1"
+                                        min="0">
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.monto_maximo">Monto máximo de préstamo (COP)</strong>
+                                        <span data-i18n="config.tope_solicitar">Tope que puede solicitar un
+                                            socio.</span>
+                                    </div>
+                                    <input type="number" id="sis-monto-max" class="input-field u-844e05" min="0"
+                                        step="10000">
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.plazo_maximo">Plazo máximo (meses)</strong>
+                                        <span data-i18n="config.duracion_maxima">Duración máxima de un préstamo.</span>
+                                    </div>
+                                    <input type="number" id="sis-plazo-max" class="input-field u-ff6578" min="1"
+                                        step="1">
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.modo_mantenimiento">Modo mantenimiento</strong>
+                                        <span data-i18n="config.restringe_acceso">Restringe temporalmente el acceso de
+                                            los socios.</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="sis-mantenimiento">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.registro_nuevos">Registro de nuevos socios</strong>
+                                        <span data-i18n="config.permite_crear_cuenta">Permite que se cree una cuenta
+                                            desde registro.html.</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="sis-registro" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.notif_admin">Notificaciones al administrador</strong>
+                                        <span data-i18n="config.avisos_internos">Avisos internos de eventos importantes
+                                            del sistema.</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="sis-notif-admin" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="u-4153dc">
+                                    <button class="btn-primary" id="btnGuardarSistema">
+                                        <i class="fa-solid fa-floppy-disk"></i> <span
+                                            data-i18n="config.guardar_configuracion">Guardar Configuración</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card u-02a008">
+                                <h3 class="card-title u-900b7b" data-i18n="config.fondo_entidad">Fondo de la Entidad
+                                </h3>
+                                <p class="text-muted u-b1fd3b" data-i18n="config.fondo_entidad_desc">Capital propio de
+                                    Bankomunal. De aquí sale el desembolso de los préstamos institucionales (no
+                                    solidarios).</p>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <strong data-i18n="config.saldo_actual">Saldo actual</strong>
+                                        <span id="fondoEntidadCodigo" class="u-e89ae9"></span>
+                                    </div>
+                                    <strong id="fondoEntidadSaldo" class="u-74fbe5">—</strong>
+                                </div>
+                                <div class="setting-row u-1b0bb3">
+                                    <div class="setting-info u-58de29">
+                                        <label class="u-27b056" data-i18n="config.monto_capitalizar">Monto a capitalizar
+                                            ($)</label>
+                                        <input type="number" id="capMonto" class="input-field u-742864" min="1"
+                                            step="10000" placeholder="1.000.000">
+                                    </div>
+                                    <div class="setting-info u-da5cd6">
+                                        <label class="u-27b056" data-i18n="config.motivo_opcional">Motivo
+                                            (opcional)</label>
+                                        <input type="text" id="capMotivo" class="input-field"
+                                            placeholder="Ej: aporte de capital de socios fundadores">
+                                    </div>
+                                    <button class="btn-primary u-4ddbe9" id="btnCapitalizarFondo">
+                                        <i class="fa-solid fa-hand-holding-dollar"></i> <span
+                                            data-i18n="config.capitalizar">Capitalizar</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card u-02a008">
+                                <div class="u-beac6f">
+                                    <div>
+                                        <h3 class="card-title u-900b7b u-3593f0" data-i18n="config.limites_transaccion">
+                                            Límites de Transacción</h3>
+                                        <p class="text-muted u-b1fd3b u-e7ec54"
+                                            data-i18n="config.limites_transaccion_desc">Topes por transacción, día y
+                                            semana — aplicados en transferencias, pagos de servicios y aportes al fondo
+                                            común.</p>
+                                    </div>
+                                    <button class="btn-secondary u-4ddbe9" id="btnNuevoLimite">
+                                        <i class="fa-solid fa-plus"></i> <span data-i18n="config.nuevo_limite">Nuevo
+                                            Límite</span>
+                                    </button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th data-i18n="config.limite_alcance">Alcance</th>
+                                                <th data-i18n="config.limite_tipo">Tipo de movimiento</th>
+                                                <th data-i18n="config.limite_por_transaccion">Por transacción</th>
+                                                <th data-i18n="config.limite_por_dia">Por día</th>
+                                                <th data-i18n="config.limite_por_semana">Por semana</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tablaLimites"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

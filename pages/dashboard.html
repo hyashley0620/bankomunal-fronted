@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+
+
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-body">
+
+
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" aria-label="Menú">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <span class="header-title" data-i18n="page.dashboard">Panel de Control</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" aria-label="Modo oscuro" title="Cambiar tema">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle" aria-label="Notificaciones">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notif-badge hidden" id="notifCount">0</span>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text">
+                            <span id="nombreUsuario" class="user-name">Cargando...</span>
+                            <small id="rolUsuario" class="user-role">...</small>
+                        </div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+
+            <main class="main-wrapper">
+                <header class="content-header">
+                    <p class="welcome-msg" data-i18n="dashboard.resumen">Resumen de tu actividad financiera en tiempo
+                        real.</p>
+                </header>
+
+                <section class="kpi-grid u-141c92">
+                    <article class="card u-101ed0">
+                        <div class="u-d92987"><i class="fa-solid fa-building-columns"></i></div>
+                        <div>
+                            <div class="u-a95ebc" data-i18n="dashboard.saldo_disponible">Saldo disponible</div>
+                            <div id="saldoGlobal" class="u-354de5">$ 0</div>
+                        </div>
+                    </article>
+                    <article class="card u-101ed0">
+                        <div class="u-f88fdb"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <div>
+                            <div class="u-a95ebc" data-i18n="dashboard.prestamos_activos">Préstamos activos</div>
+                            <div id="saldoPrestamos" class="u-354de5">$ 0</div>
+                        </div>
+                    </article>
+                    <article class="card u-101ed0">
+                        <div class="u-9a68b1"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div>
+                            <div class="u-a95ebc" data-i18n="dashboard.proxima_cuota">Próxima cuota</div>
+                            <div id="proximaCuota" class="u-354de5">$ 0</div>
+                        </div>
+                    </article>
+                    <article class="card u-101ed0">
+                        <div class="u-ae554b"><i class="fa-solid fa-users"></i></div>
+                        <div>
+                            <div class="u-a95ebc" data-i18n="dashboard.fondo_comun">Fondo común</div>
+                            <div id="fondoComun" class="u-354de5">$ 0</div>
+                        </div>
+                    </article>
+                </section>
+
+                <div class="quick-actions-bar">
+                    <button id="openTransfer" class="btn-primary">
+                        <i class="fa-solid fa-paper-plane"></i> <span data-i18n="dashboard.nueva_transferencia">Nueva
+                            Transferencia</span>
+                    </button>
+                    <button id="btnScanQR" class="btn-secondary">
+                        <i class="fa-solid fa-qrcode"></i> <span data-i18n="dashboard.escanear_qr">Escanear QR</span>
+                    </button>
+                    <a href="prestamos.html" class="btn-secondary">
+                        <i class="fa-solid fa-hand-holding-dollar"></i> <span
+                            data-i18n="dashboard.solicitar_prestamo">Solicitar Préstamo</span>
+                    </a>
+                    <button id="btnWhatsapp" class="btn-secondary" data-msg="Generando reporte...">
+                        <i class="fa-brands fa-whatsapp"></i> <span data-i18n="dashboard.reporte_whatsapp">Reporte
+                            WhatsApp</span>
+                    </button>
+                </div>
+
+                <div class="charts-grid">
+                    <section class="card">
+                        <div class="panel-header">
+                            <h2 data-i18n="dashboard.evolucion_capital">Evolución de Capital</h2>
+                        </div>
+                        <div class="chart-container"><canvas id="mainChart"></canvas></div>
+                    </section>
+                    <section class="card">
+                        <div class="panel-header">
+                            <h2 data-i18n="dashboard.meta_ahorro">Meta de Ahorro</h2>
+                        </div>
+                        <div class="chart-container"><canvas id="savingsChart"></canvas></div>
+                    </section>
+                </div>
+
+                <section class="card">
+                    <div class="panel-header">
+                        <h2 data-i18n="dashboard.transacciones_recientes">Transacciones recientes</h2>
+                        <div class="panel-tools">
+                            <select id="filterTypeDash" class="select-minimal">
+                                <option value="all" data-i18n="common.todos">Todos</option>
+                                <option value="debit" data-i18n="dashboard.debitos">Débitos</option>
+                                <option value="credit" data-i18n="dashboard.creditos">Créditos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="common.fecha">Fecha</th>
+                                    <th data-i18n="common.tipo">Tipo</th>
+                                    <th data-i18n="common.descripcion">Descripción</th>
+                                    <th data-i18n="common.referencia">Referencia</th>
+                                    <th data-i18n="common.estado">Estado</th>
+                                    <th data-i18n="common.monto">Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="txBody">
+                                <tr>
+                                    <td colspan="6" class="td-loading"><i class="fa-solid fa-circle-notch fa-spin"></i>
+                                        <span data-i18n="common.cargando">Cargando...</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+
+                <div id="overlay" class="modal-overlay hidden">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3><i class="fa-solid"></i> <span data-i18n="dashboard.transferir_fondos">Transferir
+                                    Fondos</span></h3>
+                            <button id="cancelModal" class="btn-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="transferForm">
+                                <div class="field-group">
+                                    <label data-i18n="dashboard.cuenta_destino">Cuenta destino</label>
+                                    <input id="toAccount" placeholder="Ej: BKM-XXXX-001" required>
+                                </div>
+                                <div class="field-group">
+                                    <label data-i18n="common.monto">Monto</label>
+                                    <input id="amount" type="text" placeholder="$ 0" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-secondary" id="cancelModal2"
+                                data-i18n="common.cancelar">Cancelar</button>
+                            <button type="submit" form="transferForm" class="btn-primary">
+                                <i class="fa-solid fa-paper-plane"></i> <span
+                                    data-i18n="common.confirmar">Confirmar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="qrModal" class="modal-overlay hidden">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3><i class="fa-solid"></i> <span data-i18n="dashboard.escanear_qr">Escanear QR</span></h3>
+                            <button id="closeQR" class="btn-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="reader" class="u-6d5673"></div>
+                            <p class="text-center mt-10 u-3b7068" data-i18n="dashboard.apunta_camara">
+                                Apunta tu cámara al código del negocio o socio
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+
+        </div>
+    </div>
+
+    <div id="toast" class="toast-container"></div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="../js/finanzas.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

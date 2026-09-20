@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte Técnico | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/soporte.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" data-i18n-aria="header.menu"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.soporte_tecnico">Soporte Técnico</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-e50689">
+                    <p class="welcome-msg" data-i18n="sop.resumen">Crea un ticket, revisa el estado de tus solicitudes o
+                        comunícate con
+                        nosotros.</p>
+                </header>
+
+
+                <div class="sop-kpi-row">
+                    <div class="sop-kpi">
+                        <div class="sk-ic blue"><i class="fa-solid fa-ticket"></i></div>
+                        <div class="sk-txt">
+                            <div class="val" id="kpiTotalTickets">0</div>
+                            <div class="lbl" data-i18n="sop.tickets_totales">Tickets totales</div>
+                        </div>
+                    </div>
+                    <div class="sop-kpi">
+                        <div class="sk-ic yellow"><i class="fa-solid fa-hourglass-half"></i></div>
+                        <div class="sk-txt">
+                            <div class="val" id="kpiPendientes">0</div>
+                            <div class="lbl" data-i18n="sop.en_proceso">En proceso</div>
+                        </div>
+                    </div>
+                    <div class="sop-kpi">
+                        <div class="sk-ic green"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="sk-txt">
+                            <div class="val" id="kpiResueltos">0</div>
+                            <div class="lbl" data-i18n="sop.resueltos">Resueltos</div>
+                        </div>
+                    </div>
+                    <div class="sop-kpi">
+                        <div class="sk-ic red"><i class="fa-solid fa-fire"></i></div>
+                        <div class="sk-txt">
+                            <div class="val" id="kpiAlta">0</div>
+                            <div class="lbl" data-i18n="sop.alta_prioridad">Alta prioridad</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="grid-2-col u-5ed308">
+
+
+                    <section class="card">
+                        <div class="u-c755a3">
+                            <i class="fa-solid u-035cc8"></i>
+                            <h2 class="u-4bd0ea" data-i18n="sop.nuevo_ticket">Nuevo Ticket</h2>
+                        </div>
+                        <form id="formTicket" class="form-container" novalidate>
+                            <div class="field-group">
+                                <label for="asunto"><span data-i18n="sop.asunto">Asunto</span> <span
+                                        class="required">*</span></label>
+                                <input type="text" id="asunto" placeholder="Describe brevemente el problema"
+                                    data-i18n-placeholder="sop.describe_problema" required>
+                            </div>
+                            <div class="u-ab7f7f">
+                                <div class="field-group">
+                                    <label for="categoria" data-i18n="docs.categoria">Categoría</label>
+                                    <select id="categoria">
+                                        <option value="TECNICO" data-i18n="sop.problema_tecnico">Problema técnico
+                                        </option>
+                                        <option value="TRANSACCIONES" data-i18n="transferencias.transacciones">
+                                            Transacciones</option>
+                                        <option value="PRESTAMOS" data-i18n="nav.prestamos">Préstamos</option>
+                                        <option value="CUENTA" data-i18n="sop.mi_cuenta">Mi cuenta</option>
+                                        <option value="GENERAL" data-i18n="sop.consulta_general">Consulta general
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="field-group">
+                                    <label for="prioridad" data-i18n="sop.prioridad">Prioridad</label>
+                                    <select id="prioridad">
+                                        <option value="baja" data-i18n="sop.baja">🟢 Baja</option>
+                                        <option value="media" selected data-i18n="sop.media">🟡 Media</option>
+                                        <option value="alta" data-i18n="sop.alta">🔴 Alta</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field-group">
+                                <label for="descripcion"><span data-i18n="transferencias.descripcion">Descripción</span>
+                                    <span class="required">*</span></label>
+                                <textarea id="descripcion" rows="4"
+                                    placeholder="Explica el problema con el mayor detalle posible..."
+                                    data-i18n-placeholder="sop.explica_problema" required class="u-012e91"></textarea>
+                            </div>
+                            <p id="ticketMsg" class="mensaje-status" hidden></p>
+                            <button type="submit" class="btn-primary u-6d5673">
+                                <i class="fa-solid fa-paper-plane"></i> <span data-i18n="sop.enviar_ticket">Enviar
+                                    Ticket</span>
+                            </button>
+                        </form>
+                    </section>
+
+
+                    <section class="card">
+                        <div class="u-3c7b29">
+                            <h2 class="u-4bd0ea"><i class="fa-solid fa-clock-rotate-left u-035cc8"></i> <span
+                                    data-i18n="sop.mis_tickets">Mis Tickets</span></h2>
+                            <button id="btnRefrescarTickets" class="btn-secondary u-553ac0">
+                                <i class="fa-solid fa-rotate-right"></i> <span
+                                    data-i18n="analisis.actualizar">Actualizar</span>
+                            </button>
+                        </div>
+                        <div class="u-df74e8">
+                            <table id="tablaTickets" class="u-713ed5">
+                                <thead>
+                                    <tr class="u-6a8f1d">
+                                        <th class="u-2f634d" data-i18n="common.fecha">Fecha</th>
+                                        <th class="u-2f634d" data-i18n="sop.asunto">Asunto</th>
+                                        <th class="u-2f634d" data-i18n="sop.prioridad">Prioridad</th>
+                                        <th class="u-2f634d" data-i18n="common.estado">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyTickets">
+                                    <tr>
+                                        <td colspan="4" class="u-324c8a"><i
+                                                class="fa-solid fa-circle-notch fa-spin"></i> <span
+                                                data-i18n="common.cargando">Cargando...</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+
+                <section class="card at-section" id="adminTicketsSection">
+                    <div class="at-header">
+                        <h2>
+                            <i class="fa-solid"></i>
+                            <span data-i18n="sop.tickets_vista_admin">Tickets de Socios — Vista Administrador</span>
+                        </h2>
+                        <div class="at-filters">
+                            <select id="adminTicketFiltroEstado" class="at-select">
+                                <option value="" data-i18n="sop.todos_estados">Todos los estados</option>
+                                <option value="open" data-i18n="sop.abierto">Abierto</option>
+                                <option value="in_progress" data-i18n="sop.en_proceso">En proceso</option>
+                                <option value="resolved" data-i18n="sop.resuelto">Resuelto</option>
+                                <option value="closed" data-i18n="sop.cerrado">Cerrado</option>
+                            </select>
+                            <select id="adminTicketFiltroPrioridad" class="at-select">
+                                <option value="" data-i18n="sop.todas_prioridades">Todas las prioridades</option>
+                                <option value="alta" data-i18n="sop.alta_op">Alta</option>
+                                <option value="media" data-i18n="sop.media_op">Media</option>
+                                <option value="baja" data-i18n="sop.baja_op">Baja</option>
+                            </select>
+                            <button id="btnRefrescarAdminTickets" class="btn-secondary at-btn-refresh">
+                                <i class="fa-solid fa-rotate-right"></i> <span
+                                    data-i18n="analisis.actualizar">Actualizar</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="at-kpi-grid">
+                        <div class="at-kpi-card">
+                            <div class="at-kpi-icon blue">
+                                <i class="fa-solid fa-ticket"></i>
+                            </div>
+                            <div>
+                                <div id="adminKpiTotal" class="at-kpi-value">0</div>
+                                <div class="at-kpi-label" data-i18n="common.total">Total</div>
+                            </div>
+                        </div>
+                        <div class="at-kpi-card">
+                            <div class="at-kpi-icon amber">
+                                <i class="fa-solid fa-hourglass-half"></i>
+                            </div>
+                            <div>
+                                <div id="adminKpiAbiertos" class="at-kpi-value">0</div>
+                                <div class="at-kpi-label" data-i18n="sop.abiertos">Abiertos</div>
+                            </div>
+                        </div>
+                        <div class="at-kpi-card">
+                            <div class="at-kpi-icon green">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div>
+                                <div id="adminKpiResueltos" class="at-kpi-value">0</div>
+                                <div class="at-kpi-label" data-i18n="sop.resueltos">Resueltos</div>
+                            </div>
+                        </div>
+                        <div class="at-kpi-card">
+                            <div class="at-kpi-icon red">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                            </div>
+                            <div>
+                                <div id="adminKpiAlta" class="at-kpi-value">0</div>
+                                <div class="at-kpi-label" data-i18n="sop.alta_prioridad">Alta prioridad</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="at-table-wrap">
+                        <table class="at-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th data-i18n="perfil.socio">Socio</th>
+                                    <th data-i18n="sop.asunto">Asunto</th>
+                                    <th data-i18n="docs.categoria">Categoría</th>
+                                    <th data-i18n="sop.prioridad">Prioridad</th>
+                                    <th data-i18n="common.estado">Estado</th>
+                                    <th data-i18n="common.fecha">Fecha</th>
+                                    <th data-i18n="common.acciones">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyAdminTickets">
+                                <tr>
+                                    <td colspan="8" class="at-loading">
+                                        <i class="fa-solid fa-circle-notch fa-spin"></i> <span
+                                            data-i18n="common.cargando">Cargando...</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+
+                <div id="modalAdminTicket" class="at-modal">
+                    <div class="at-modal-card">
+                        <div class="at-modal-header">
+                            <h3><i class="fa-solid"></i> <span data-i18n="sop.ticket_numero">Ticket #</span><span
+                                    id="adminTicketIdDetalle"></span></h3>
+                            <button id="closeAdminTicketModal" class="at-modal-close">&times;</button>
+                        </div>
+                        <div id="adminTicketDetalleBody" class="at-modal-body"></div>
+                        <div class="at-modal-body u-511cd1">
+                            <label class="u-00a7ed" data-i18n="sop.responder_socio">Responder al socio:</label>
+                            <textarea id="adminTicketRespuesta" rows="3" class="input-clean u-ae48c3"
+                                placeholder="Escribe la respuesta que verá el socio..."
+                                data-i18n-placeholder="sop.escribe_respuesta"></textarea>
+                        </div>
+                        <div class="at-modal-footer">
+                            <label data-i18n="sop.cambiar_estado">Cambiar estado:</label>
+                            <select id="adminSelectEstado" class="at-select-flex">
+                                <option value="open" data-i18n="sop.abierto">Abierto</option>
+                                <option value="in_progress" data-i18n="sop.en_proceso">En proceso</option>
+                                <option value="resolved" data-i18n="sop.resuelto">Resuelto</option>
+                                <option value="closed" data-i18n="sop.cerrado">Cerrado</option>
+                            </select>
+                            <button id="btnGuardarEstadoTicket" class="btn-primary at-btn-save">
+                                <i class="fa-solid fa-paper-plane"></i> <span
+                                    data-i18n="sop.responder_guardar">Responder y guardar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <section class="card u-02a008">
+                    <div class="u-c755a3">
+                        <i class="fa-solid fa-circle-info u-035cc8"></i>
+                        <h2 class="u-4bd0ea" data-i18n="sop.canales_atencion">Canales de Atención</h2>
+                    </div>
+                    <div class="u-e24fe1">
+                        <div class="u-fa6319">
+                            <i class="fa-solid fa-envelope fa-lg u-457829"></i>
+                            <p class="u-d46017" data-i18n="sop.correo">Correo</p>
+                            <p class="u-2856ae">soporte@bankomunal.com</p>
+                            <p class="u-63bafd" data-i18n="sop.respuesta_24h">Respuesta en 24 h hábiles</p>
+                        </div>
+                        <div class="u-fa6319">
+                            <i class="fa-solid fa-phone fa-lg u-457829"></i>
+                            <p class="u-d46017" data-i18n="registro.telefono_corto">Teléfono</p>
+                            <p class="u-2856ae">601 234 5678</p>
+                            <p class="u-63bafd" data-i18n="sop.horario">Lun–Vie 8 am – 6 pm</p>
+                        </div>
+                        <div class="u-fa6319">
+                            <i class="fa-brands fa-whatsapp fa-lg u-a77101"></i>
+                            <p class="u-d46017" data-i18n="sop.whatsapp">WhatsApp</p>
+                            <p class="u-2856ae">+57 315 678 9012</p>
+                            <p class="u-63bafd" data-i18n="sop.respuesta_inmediata">Respuesta inmediata</p>
+                        </div>
+                        <div class="u-fa6319">
+                            <i class="fa-solid fa-comments fa-lg u-457829"></i>
+                            <p class="u-d46017" data-i18n="sop.chat_en_linea">Chat en línea</p>
+                            <a href="chat-soporte.html" class="btn-primary u-4beb0c">
+                                <span data-i18n="sop.abrir_chat">Abrir chat</span> <i
+                                    class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+
+    <!-- Widget flotante de soporte (chat virtual + WhatsApp) -->
+    <div class="support-fab-wrapper">
+        <div id="floatOptions" class="support-fab-options">
+            <a href="https://wa.me/573001234567" target="_blank" rel="noopener" class="whatsapp-btn">
+                <i class="fa-brands fa-whatsapp"></i> <span data-i18n="sop.whatsapp">WhatsApp</span>
+            </a>
+            <button id="openChatVirtual" type="button">
+                <i class="fa-solid fa-robot"></i> <span data-i18n="sop.chat_virtual">Chat Virtual</span>
+            </button>
+        </div>
+        <button id="toggleChat" type="button" class="support-fab" aria-label="Soporte"
+            data-i18n-aria="nav.soporte_tecnico">
+            <i id="toggleIcon" class="fa-solid fa-headset"></i>
+        </button>
+    </div>
+
+    <div id="chatPopup" class="support-chat-popup">
+        <div class="support-chat-header">
+            <h4><i class="fa-solid"></i> <span data-i18n="sop.asistente_virtual">Asistente Virtual</span></h4>
+            <button id="closeChat" type="button" aria-label="Cerrar">&times;</button>
+        </div>
+        <div id="chatContent" class="support-chat-body">
+            <div class="bubble-wrapper bot">
+                <div class="bubble" data-i18n="sop.bienvenida_bot">¡Hola! Soy el asistente virtual de Bankomunal.
+                    Pregúntame sobre transferencias,
+                    préstamos, pagos.</div>
+            </div>
+        </div>
+        <div class="support-chat-footer">
+            <input type="text" id="chatInput" placeholder="Escribe tu pregunta..."
+                data-i18n-placeholder="sop.escribe_pregunta">
+            <button id="sendChat" type="button" aria-label="Enviar"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/soporte.js"></script>
+</body>
+
+</html>

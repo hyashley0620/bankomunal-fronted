@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educación Financiera | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/datos.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" aria-label="Menú" data-i18n-aria="header.menu"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.educacion">Educación Financiera</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" aria-label="Modo oscuro" title="Cambiar tema"
+                        data-i18n-aria="header.cambiar_tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle" aria-label="Notificaciones"
+                            data-i18n-aria="header.notificaciones">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notif-badge hidden" id="notifCount">0</span>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text">
+                            <span id="nombreUsuario" class="user-name">Cargando...</span>
+                            <small id="rolUsuario" class="user-role">...</small>
+                        </div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header">
+                    <p class="welcome-msg" data-i18n="educacion.resumen">Aprende a gestionar tu dinero y accede a
+                        mejores condiciones.
+                    </p>
+                </header>
+
+
+                <div class="edu-stats" id="eduStats">
+                    <div class="stat-pill">
+                        <div class="val" id="statCompletados">0</div>
+                        <div class="lbl" data-i18n="educacion.cursos_completados">Cursos completados</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="val" id="statEnCurso">0</div>
+                        <div class="lbl" data-i18n="educacion.en_progreso">En progreso</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="val" id="statCerts">0</div>
+                        <div class="lbl" data-i18n="educacion.certificados">Certificados</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="val" id="statPuntos">0</div>
+                        <div class="lbl" data-i18n="beneficios.puntos_acumulados">Puntos acumulados</div>
+                    </div>
+                </div>
+
+
+                <div class="panel-header u-9590f7">
+                    <h2 data-i18n="educacion.catalogo_cursos">Catálogo de Cursos</h2>
+                    <div class="u-9c3ffe">
+                        <input type="search" id="buscarCurso" placeholder="Buscar curso..." class="u-414734"
+                            data-i18n-placeholder="educacion.buscar_curso">
+                        <button class="filtro-btn active" data-cat="todos" data-i18n="common.todos">Todos</button>
+                        <button class="filtro-btn" data-cat="ahorro" data-i18n="educacion.ahorro">Ahorro</button>
+                        <button class="filtro-btn" data-cat="credito" data-i18n="educacion.credito">Crédito</button>
+                        <button class="filtro-btn" data-cat="inversion"
+                            data-i18n="educacion.inversion">Inversión</button>
+                        <button class="filtro-btn" data-cat="presupuesto"
+                            data-i18n="educacion.presupuesto">Presupuesto</button>
+                    </div>
+                </div>
+
+                <div class="edu-grid" id="cursosGrid">
+                    <div class="u-42bfea">
+                        <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+                        <p class="u-102753" data-i18n="educacion.cargando_cursos">Cargando cursos...</p>
+                    </div>
+                </div>
+
+
+                <section class="card u-356750">
+                    <div class="panel-header">
+                        <h2><i class="fa-solid u-5b3747"></i> <span data-i18n="educacion.mis_certificados">Mis
+                                Certificados</span></h2>
+                    </div>
+                    <div id="certList" class="u-ee4fbb">
+                        <p class="u-0e60ba" data-i18n="educacion.completa_curso">Completa un curso para obtener tu
+                            primer certificado.</p>
+                    </div>
+                </section>
+
+                <section id="adminCursosSection" class="card hidden u-b06fb3">
+                    <div class="u-e71d2c">
+                        <div>
+                            <h3 class="u-2b06c9">
+                                <i class="fa-solid"></i> <span data-i18n="educacion.gestion_cursos_admin">Gestión de
+                                    Cursos (Admin)</span>
+                            </h3>
+                            <p class="welcome-msg u-e4248f" data-i18n="educacion.crea_edita_cursos">Crea, edita o
+                                desactiva los cursos del
+                                catálogo de Educación Financiera.</p>
+                        </div>
+                        <button id="btnNuevoCurso" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> <span data-i18n="educacion.nuevo_curso">Nuevo Curso</span>
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="educacion.curso">Curso</th>
+                                    <th data-i18n="docs.categoria">Categoría</th>
+                                    <th data-i18n="educacion.nivel">Nivel</th>
+                                    <th data-i18n="educacion.lecciones">Lecciones</th>
+                                    <th data-i18n="beneficios.puntos">Puntos</th>
+                                    <th data-i18n="common.estado">Estado</th>
+                                    <th data-i18n="common.acciones">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminCursosList"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal crear/editar curso -->
+    <div id="modalCurso" class="modal-overlay u-cb4589">
+        <div class="modal-content u-12ad36">
+            <div class="modal-header">
+                <h3 id="modalCursoTitulo"><i class="fa-solid"></i> <span data-i18n="educacion.nuevo_curso">Nuevo
+                        Curso</span></h3>
+                <button class="btn-close" id="btnCerrarModalCurso">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="cursoId">
+                <div class="u-3a7687">
+                    <div>
+                        <label data-i18n="educacion.titulo_curso">Título del curso</label>
+                        <input type="text" id="cursoTitulo" placeholder="Ej: Fundamentos del Ahorro"
+                            data-i18n-placeholder="educacion.ejemplo_titulo_curso">
+                    </div>
+                    <div>
+                        <label data-i18n="educacion.emoji">Emoji</label>
+                        <input type="text" id="cursoEmoji" placeholder="💰" maxlength="4">
+                    </div>
+                    <div>
+                        <label data-i18n="educacion.color">Color</label>
+                        <input type="color" id="cursoColor" value="#e8f4fb" class="u-be770e">
+                    </div>
+                </div>
+                <div class="u-831945">
+                    <div>
+                        <label>Categoría</label>
+                        <select id="cursoCategoria">
+                            <option value="ahorro" data-i18n="educacion.ahorro">Ahorro</option>
+                            <option value="credito" data-i18n="educacion.credito">Crédito</option>
+                            <option value="presupuesto" data-i18n="educacion.presupuesto">Presupuesto</option>
+                            <option value="inversion" data-i18n="educacion.inversion">Inversión</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Nivel</label>
+                        <select id="cursoNivel">
+                            <option data-i18n="educacion.basico">Básico</option>
+                            <option data-i18n="educacion.intermedio">Intermedio</option>
+                            <option data-i18n="educacion.avanzado">Avanzado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Duración</label>
+                        <input type="text" id="cursoDuracion" placeholder="Ej: 45 min"
+                            data-i18n-placeholder="educacion.ejemplo_duracion">
+                    </div>
+                </div>
+                <div class="u-3ba25b">
+                    <label>Descripción</label>
+                    <textarea id="cursoDescripcion" rows="2" placeholder="Descripción corta del curso"
+                        data-i18n-placeholder="educacion.descripcion_corta"></textarea>
+                </div>
+                <div class="u-6ad707">
+                    <div>
+                        <label data-i18n="educacion.puntos_al_completar">Puntos al completar</label>
+                        <input type="number" id="cursoPuntos" min="0" value="100">
+                    </div>
+                    <div>
+                        <label>Estado</label>
+                        <select id="cursoActivo">
+                            <option value="true" data-i18n="common.activo">Activo</option>
+                            <option value="false" data-i18n="common.inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="u-f74914">
+                    <h4 class="u-1386d5"><i class="fa-solid fa-list-ol"></i> <span
+                            data-i18n="educacion.lecciones">Lecciones</span></h4>
+                    <button type="button" id="btnAgregarLeccion" class="btn-secondary u-6c660c">
+                        <i class="fa-solid fa-plus"></i> <span data-i18n="educacion.agregar_leccion">Agregar
+                            lección</span>
+                    </button>
+                </div>
+                <div id="listaLeccionesForm" class="u-6a7127"></div>
+
+                <button id="btnGuardarCurso" class="btn-primary w-100 u-02a008">
+                    <i class="fa-solid fa-floppy-disk"></i> <span data-i18n="educacion.guardar_curso">Guardar
+                        Curso</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plantilla de una lección (se clona por JS) -->
+    <template id="tplLeccionForm">
+        <div class="leccion-form-item u-623e25">
+            <div class="u-554cda">
+                <strong class="leccion-numero u-9fb188" data-i18n="educacion.leccion">Lección</strong>
+                <button type="button" class="btn-link-sm btn-quitar-leccion u-f36f3f">
+                    <i class="fa-solid fa-trash"></i> <span data-i18n="educacion.quitar">Quitar</span>
+                </button>
+            </div>
+            <label class="u-6c660c" data-i18n="educacion.titulo_leccion">Título de la lección</label>
+            <input type="text" class="leccion-titulo" placeholder="Ej: ¿Por qué ahorrar?"
+                data-i18n-placeholder="educacion.ejemplo_titulo_leccion">
+            <label class="u-1421ab" data-i18n="educacion.contenido">Contenido</label>
+            <textarea class="leccion-contenido" rows="3"
+                placeholder="Texto de la lección (admite **negrita** y saltos de línea)"
+                data-i18n-placeholder="educacion.texto_leccion"></textarea>
+            <label class="u-9691de">
+                <input type="checkbox" class="leccion-es-final"> <span data-i18n="educacion.leccion_final">Esta es la
+                    lección final (pantalla de "¡Completado!")</span>
+            </label>
+            <div class="leccion-quiz-wrap u-3f53c4">
+                <label class="u-6c660c" data-i18n="educacion.pregunta_quiz">Pregunta del quiz (opcional, se omite si se
+                    deja vacía)</label>
+                <input type="text" class="leccion-quiz-pregunta"
+                    placeholder="Ej: ¿Cuánto recomienda ahorrar la regla 50/30/20?"
+                    data-i18n-placeholder="educacion.ejemplo_pregunta">
+                <div class="u-6d2ce0">
+                    <input type="text" class="leccion-quiz-opcion" data-idx="0" placeholder="Opción 1"
+                        data-i18n-placeholder="encuestas.opcion_1">
+                    <input type="text" class="leccion-quiz-opcion" data-idx="1" placeholder="Opción 2"
+                        data-i18n-placeholder="encuestas.opcion_2">
+                    <input type="text" class="leccion-quiz-opcion" data-idx="2" placeholder="Opción 3"
+                        data-i18n-placeholder="educacion.opcion_3">
+                    <input type="text" class="leccion-quiz-opcion" data-idx="3" placeholder="Opción 4"
+                        data-i18n-placeholder="educacion.opcion_4">
+                </div>
+                <label class="u-1421ab" data-i18n="educacion.cual_correcta">¿Cuál opción es la correcta?</label>
+                <select class="leccion-quiz-correcta">
+                    <option value="0" data-i18n="encuestas.opcion_1">Opción 1</option>
+                    <option value="1" data-i18n="encuestas.opcion_2">Opción 2</option>
+                    <option value="2" data-i18n="educacion.opcion_3">Opción 3</option>
+                    <option value="3" data-i18n="educacion.opcion_4">Opción 4</option>
+                </select>
+            </div>
+        </div>
+    </template>
+    <div id="toast" class="toast-container"></div>
+
+    <div class="lesson-modal-overlay" id="lessonModal">
+        <div class="lesson-modal-box">
+            <div class="lesson-modal-header">
+                <div class="u-89bd09">
+                    <div id="lessonCursoNombre" class="u-46c5b0"></div>
+                    <strong id="lessonTitulo" class="u-8db147"></strong>
+                </div>
+                <button id="closeLessonModal" class="btn-icon u-adf667">&times;</button>
+            </div>
+            <div class="lesson-modal-body">
+                <div class="lesson-progress-bar">
+                    <div class="lesson-progress-fill u-9c33ea" id="lessonProgressFill"></div>
+                </div>
+                <div class="lesson-content-text" id="lessonContenido"></div>
+                <div class="quiz-block u-cb4589" id="quizBlock">
+                    <p id="quizPregunta"></p>
+                    <div id="quizOpciones" class="quiz-options"></div>
+                    <div class="quiz-result u-cb4589" id="quizResultado"></div>
+                </div>
+            </div>
+            <div class="lesson-modal-footer">
+                <button class="btn-secondary" id="btnAnteriorLeccion"><i class="fa-solid fa-arrow-left"></i>
+                    <span data-i18n="educacion.anterior">Anterior</span></button>
+                <button class="btn-primary" id="btnSiguienteLeccion"><span
+                        data-i18n="educacion.siguiente">Siguiente</span> <i
+                        class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-modal-overlay" id="certModal">
+        <div class="lesson-modal-box u-ae18a0">
+            <div class="lesson-modal-header">
+                <strong data-i18n="educacion.certificado_obtenido">🎓 Certificado Obtenido</strong>
+                <button class="btn-icon u-7d6c0f" id="closeCertModal">&times;</button>
+            </div>
+            <div class="lesson-modal-body u-0be2bd">
+                <div class="u-481974">🏆</div>
+                <h3 id="certCursoNombre" class="u-69e80a"></h3>
+                <p class="u-2cc31e" data-i18n="educacion.completaste_curso">Has completado este curso exitosamente.</p>
+                <button class="btn-primary u-6d5673" id="btnDescargarCert">
+                    <i class="fa-solid fa-download"></i> <span data-i18n="educacion.descargar_certificado">Descargar
+                        Certificado PDF</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/educacion.js"></script>
+</body>
+
+</html>

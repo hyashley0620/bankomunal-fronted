@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/datos.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon"><i class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.perfil">Mi Perfil</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+
+                <div class="profile-hero">
+                    <div class="profile-avatar-wrap" data-trigger="fotoInput" title="Cambiar foto">
+                        <div class="profile-avatar" id="profileAvatarDisplay">--</div>
+                        <div class="edit-overlay"><i class="fa-solid fa-camera"></i><span
+                                data-i18n="perfil.cambiar">Cambiar</span></div>
+                        <input type="file" id="fotoInput" accept="image/*" class="u-cb4589">
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profileNombre">Cargando...</h2>
+                        <p class="pi-email" id="profileEmail">...</p>
+                        <div class="pi-badges">
+                            <span class="status-pill st-success" id="profileRol" data-i18n="perfil.socio">Socio</span>
+                            <span id="profileMiembro" class="u-b5d875">Miembro desde 2025</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn-secondary u-0de4e7" id="btnUploadPhoto" data-trigger="fotoInput">
+                            <i class="fa-solid fa-camera"></i> <span data-i18n="perfil.foto">Foto</span>
+                        </button>
+                        <a href="configuracion.html" class="btn-secondary u-2ad3fd">
+                            <i class="fa-solid fa-gear"></i> <span data-i18n="nav.ajustes">Ajustes</span>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="pf-kpi-row">
+                    <div class="pf-kpi">
+                        <div class="pv" id="pfKpiSaldo">$---</div>
+                        <div class="pl" data-i18n="perfil.saldo_total">Saldo total</div>
+                    </div>
+                    <div class="pf-kpi">
+                        <div class="pv" id="pfKpiCreditos">0</div>
+                        <div class="pl" data-i18n="prestamos.creditos_activos">Créditos activos</div>
+                    </div>
+                    <div class="pf-kpi">
+                        <div class="pv" id="pfKpiTx">0</div>
+                        <div class="pl" data-i18n="transferencias.transacciones">Transacciones</div>
+                    </div>
+                    <div class="pf-kpi">
+                        <div class="pv" id="pfKpiCursos">0</div>
+                        <div class="pl" data-i18n="perfil.cursos_completos">Cursos completos</div>
+                    </div>
+                </div>
+
+
+                <div class="pf-tabs">
+                    <button class="pf-tab active" data-tab="datos" data-i18n="perfil.datos_personales">Datos
+                        Personales</button>
+                    <button class="pf-tab" data-tab="documentos" data-i18n="nav.documentos">Documentos</button>
+                    <button class="pf-tab" data-tab="actividad" data-i18n="perfil.actividad_reciente">Actividad
+                        Reciente</button>
+                </div>
+
+
+                <div class="pf-pane active" id="pane-datos">
+                    <div class="card">
+                        <form id="formPerfil">
+                            <div class="fg-2 u-409d10">
+                                <div class="f-group"><label data-i18n="perfil.nombres_req">Nombre(s) *</label>
+                                    <input type="text" id="perfilNombre" class="f-input" required>
+                                </div>
+                                <div class="f-group"><label data-i18n="registro.apellidos">Apellidos</label>
+                                    <input type="text" id="perfilApellido" class="f-input">
+                                </div>
+                            </div>
+                            <div class="fg-2 u-409d10">
+                                <div class="f-group"><label data-i18n="login.email">Correo electrónico</label>
+                                    <input type="email" id="perfilEmail" class="f-input">
+                                </div>
+                                <div class="f-group"><label data-i18n="registro.telefono_corto">Teléfono</label>
+                                    <input type="text" id="perfilTelefono" class="f-input"
+                                        placeholder="+57 300 000 0000" inputmode="numeric" data-solo-numeros
+                                        maxlength="15">
+                                </div>
+                            </div>
+                            <div class="fg-2 u-409d10">
+                                <div class="f-group"><label data-i18n="perfil.documento_identidad">Documento de
+                                        Identidad</label>
+                                    <input type="text" id="perfilCedula" class="f-input" inputmode="numeric"
+                                        data-solo-numeros maxlength="15">
+                                </div>
+                                <div class="f-group"><label data-i18n="registro.ciudad">Ciudad</label>
+                                    <input type="text" id="perfilCiudad" class="f-input" placeholder="Pamplona">
+                                </div>
+                            </div>
+                            <div class="f-group u-e50689"><label data-i18n="registro.direccion">Dirección</label>
+                                <input type="text" id="perfilDireccion" class="f-input"
+                                    placeholder="Dirección de residencia">
+                            </div>
+                            <div class="u-1c445f">
+                                <button type="button" class="btn-secondary" id="btnDescartarPerfil"
+                                    data-i18n="perfil.descartar">Descartar</button>
+                                <button type="submit" class="btn-primary" id="btnGuardarPerfil">
+                                    <i class="fa-solid fa-floppy-disk"></i> <span
+                                        data-i18n="common.guardar_cambios">Guardar Cambios</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="pf-pane" id="pane-documentos">
+                    <div class="card">
+                        <p class="u-7d987e">
+                            <span data-i18n="perfil.documentos_adjuntos">Documentos adjuntos a tu cuenta. Para subir
+                                nuevos ve a</span>
+                            <a href="documentos.html" class="u-035cc8" data-i18n="perfil.gestion_documentos">Gestión de
+                                Documentos</a>.
+                        </p>
+                        <div id="profileDocs">
+                            <div class="u-0330e5">
+                                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                <p data-i18n="common.cargando">Cargando...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="pf-pane" id="pane-actividad">
+                    <div class="card">
+                        <div id="profileActividad">
+                            <div class="u-0330e5">
+                                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                <p data-i18n="perfil.cargando_actividad">Cargando actividad...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

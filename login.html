@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/utilities.css">
+</head>
+
+<body class="bg-auth-layout">
+
+    <main class="auth-wrapper">
+        <section class="card auth-card" aria-labelledby="titulo-login">
+
+            <header class="auth-header">
+                <img src="assets/img/logo.png" alt="Logo Bankomunal" class="auth-logo-img">
+                <div class="auth-brand">
+                    <strong class="brand-name">BANKOMUNAL</strong>
+                    <span class="brand-tagline" data-i18n="nav.subtitulo">Microfinanzas Comunitarias</span>
+                </div>
+            </header>
+
+            <div id="pasoLogin">
+                <h1 id="titulo-login" class="auth-title" data-i18n="login.titulo">Iniciar sesión</h1>
+
+                <form id="loginForm" class="form-container" novalidate>
+
+                    <div class="field-group">
+                        <label for="user" data-i18n="login.email">Correo electrónico</label>
+                        <input type="email" id="user" name="user" placeholder="ejemplo@correo.com" required
+                            autocomplete="username">
+                        <small class="helper-text" data-i18n="login.email_helper">Use el correo electrónico
+                            registrado.</small>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="password" data-i18n="login.password">Contraseña</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" placeholder="••••••••" required
+                                autocomplete="current-password">
+                            <button type="button" class="toggle-pass" id="togglePwd" aria-label="Ver contraseña"
+                                data-i18n-aria="login.ver_contrasena">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <small class="helper-text" data-i18n="login.password_helper">Mínimo 8 caracteres.</small>
+                    </div>
+
+                    <div class="auth-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span data-i18n="login.recordarme">Recordarme</span>
+                        </label>
+                        <a href="recuperar-contrasena.html" class="forgot-link" data-i18n="login.olvidaste">¿Olvidó su
+                            contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-full" id="btnLogin">
+                        <i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="login.entrar">Iniciar
+                            sesión</span>
+                    </button>
+
+                    <p id="errorMsg" class="mensaje-status error-text" hidden></p>
+                </form>
+
+                <nav class="auth-navigation mt-15">
+                    <p><span data-i18n="login.sin_cuenta">¿No tienes una cuenta?</span> <a href="registro.html"
+                            class="register-link" data-i18n="login.registrate">Regístrate aquí</a></p>
+                </nav>
+            </div>
+
+            <div id="pasoMfa" class="hidden">
+                <h1 class="auth-title" data-i18n="mfa.titulo">Verificación en dos pasos</h1>
+                <p class="auth-subtitle">
+                    <span data-i18n="mfa.enviamos">Enviamos un código de 6 dígitos a</span>
+                    <strong id="mfaEmailLabel"></strong>.
+                    <span data-i18n="mfa.ingresalo">Ingrésalo para continuar.</span>
+                </p>
+
+                <form id="mfaForm" class="form-container" novalidate>
+                    <div class="field-group">
+                        <label for="mfaCodigo" data-i18n="mfa.codigo">Código de verificación</label>
+                        <input type="text" id="mfaCodigo" name="mfaCodigo" placeholder="123456" required
+                            inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code"
+                            class="u-338ce8">
+                        <small class="helper-text" data-i18n="mfa.expira">El código vence en 10 minutos.</small>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-full">
+                        <i class="fa-solid fa-shield-halved"></i> <span data-i18n="mfa.verificar">Verificar</span>
+                    </button>
+
+                    <p id="mfaErrorMsg" class="mensaje-status error-text" hidden></p>
+                </form>
+
+                <nav class="auth-navigation mt-15">
+                    <p><a href="#" id="btnVolverLogin" class="register-link" data-i18n="mfa.volver">← Volver al inicio
+                            de sesión</a></p>
+                </nav>
+            </div>
+
+            <footer class="auth-footer">
+                <p data-i18n="login.copyright">&copy; 2026 Bankomunal. Todos los derechos reservados.</p>
+            </footer>
+        </section>
+    </main>
+
+    <div id="toast" class="toast-container"></div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

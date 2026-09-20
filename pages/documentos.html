@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Documentos | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/datos.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+
+
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app-body">
+
+
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" aria-label="Menú" data-i18n-aria="header.menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <span class="header-title" data-i18n="page.documentos">Mis Documentos</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" aria-label="Modo oscuro" title="Cambiar tema"
+                        data-i18n-aria="header.cambiar_tema" data-i18n-title="header.cambiar_tema">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle" aria-label="Notificaciones"
+                            data-i18n-aria="header.notificaciones">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notif-badge hidden" id="notifCount">0</span>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text">
+                            <span id="nombreUsuario" class="user-name">Cargando...</span>
+                            <small id="rolUsuario" class="user-role">...</small>
+                        </div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+
+            <main class="main-wrapper">
+                <header class="content-header">
+                    <p class="welcome-msg" data-i18n="docs.resumen">Almacena, organiza y gestiona tus documentos legales
+                        y contratos.</p>
+                </header>
+
+
+                <div class="u-4ebd5c">
+                    <div class="u-a71ada">
+                        <div class="u-3214bc"><i class="fa-solid fa-folder"></i></div>
+                        <div>
+                            <div id="statTotal" class="u-c298e6">0</div>
+                            <div class="u-5e2f9d" data-i18n="docs.documentos_totales">Documentos totales</div>
+                        </div>
+                    </div>
+                    <div class="u-a71ada">
+                        <div class="u-6000b8"><i class="fa-solid fa-file-pdf"></i></div>
+                        <div>
+                            <div id="statPDF" class="u-c298e6">0</div>
+                            <div class="u-5e2f9d" data-i18n="docs.pdfs">PDFs</div>
+                        </div>
+                    </div>
+                    <div class="u-a71ada">
+                        <div class="u-5c78cc"><i class="fa-solid fa-database"></i></div>
+                        <div>
+                            <div id="statMB" class="u-c298e6">0</div>
+                            <div class="u-5e2f9d" data-i18n="docs.mb_usados">MB usados</div>
+                        </div>
+                    </div>
+                    <div class="u-a71ada">
+                        <div class="u-e9fa0d"><i class="fa-solid fa-tags"></i></div>
+                        <div>
+                            <div id="statCat" class="u-c298e6">0</div>
+                            <div class="u-5e2f9d" data-i18n="docs.categorias">Categorías</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <section class="card u-4ccc67">
+                    <h2 class="u-9590f7"><i class="fa-solid fa-cloud-arrow-up u-035cc8"></i> <span
+                            data-i18n="docs.subir_documento">Subir Documento</span></h2>
+                    <div class="upload-zone" id="uploadZone">
+                        <i class="fa-solid fa-file-arrow-up"></i>
+                        <strong data-i18n="docs.arrastra_archivo">Arrastra tu archivo aquí</strong>
+                        <p data-i18n="docs.o_haz_clic">o haz clic para seleccionar</p>
+                        <p class="u-bb0425" data-i18n="docs.formatos_permitidos">PDF, Word, Excel, imágenes — Máx. 10 MB
+                        </p>
+                    </div>
+                    <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg">
+                    <div class="upload-progress" id="uploadProgress">
+                        <div class="upload-progress-fill u-9c33ea" id="uploadFill"></div>
+                    </div>
+                    <div id="uploadMeta" class="u-efcf8a">
+                        <div class="u-8473ba">
+                            <div class="input-group u-890011">
+                                <label data-i18n="docs.nombre_documento">Nombre del documento</label>
+                                <input id="docNombre" placeholder="Ej: Contrato Préstamo Marzo 2026"
+                                    data-i18n-placeholder="docs.ejemplo_nombre">
+                            </div>
+                            <div class="input-group u-b66caf">
+                                <label data-i18n="docs.categoria">Categoría</label>
+                                <select id="docCategoria" class="select-minimal u-24332b">
+                                    <option value="contrato" data-i18n="docs.contratos">Contratos</option>
+                                    <option value="estado_financiero" data-i18n="docs.estado_financiero">Estado
+                                        Financiero</option>
+                                    <option value="identidad" data-i18n="docs.identidad">Identidad</option>
+                                    <option value="reporte" data-i18n="docs.reportes">Reportes</option>
+                                    <option value="acta" data-i18n="docs.actas">Actas</option>
+                                    <option value="otro" data-i18n="registro.otro">Otro</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary u-89a329" id="btnSubir">
+                                <i class="fa-solid fa-upload"></i> <span data-i18n="docs.subir">Subir</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+
+                <div class="panel-header u-916e3e">
+                    <h2 data-i18n="nav.documentos">Mis Documentos</h2>
+                    <div class="u-e68eed">
+                        <select id="sortOrder" class="select-minimal u-2d47e4">
+                            <option value="fecha_desc" data-i18n="docs.mas_recientes">Más recientes</option>
+                            <option value="fecha_asc" data-i18n="docs.mas_antiguos">Más antiguos</option>
+                            <option value="nombre" data-i18n="docs.por_nombre">Por nombre</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="u-d7c9ce">
+                    <input type="search" id="buscarDoc" placeholder="Buscar documento..." class="u-329d11"
+                        data-i18n-placeholder="docs.buscar_documento">
+                </div>
+                <div class="cat-tabs" id="catTabs">
+                    <button class="cat-tab active" data-cat="todas" data-i18n="common.todos">Todos</button>
+                    <button class="cat-tab" data-cat="contrato" data-i18n="docs.contratos">Contratos</button>
+                    <button class="cat-tab" data-cat="estado_financiero"
+                        data-i18n="docs.financieros">Financieros</button>
+                    <button class="cat-tab" data-cat="identidad" data-i18n="docs.identidad">Identidad</button>
+                    <button class="cat-tab" data-cat="reporte" data-i18n="docs.reportes">Reportes</button>
+                    <button class="cat-tab" data-cat="acta" data-i18n="docs.actas">Actas</button>
+                    <button class="cat-tab" data-cat="otro" data-i18n="docs.otros">Otros</button>
+                </div>
+
+                <div id="docsGrid" class="docs-grid">
+                    <div class="u-331806">
+                        <i class="fa-solid fa-folder-open fa-3x u-ceb649"></i>
+                        <p class="u-102753" data-i18n="docs.sin_documentos">No tienes documentos aún. ¡Sube el primero!
+                        </p>
+                    </div>
+                </div>
+
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+
+        </div>
+    </div>
+
+    <div id="toast" class="toast-container"></div>
+
+    <div id="previewModal" class="u-0f3630">
+        <div class="u-1d486f">
+            <div class="u-81db0f">
+                <strong class="u-8db147"><i class="fa-solid u-035cc8"></i> <span id="prevTitulo"
+                        data-i18n="docs.detalle_documento">Detalle
+                        del Documento</span></strong>
+                <button id="closePreview" class="u-6e272d">&times;</button>
+            </div>
+            <div id="prevBody" class="u-c05beb"></div>
+        </div>
+    </div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/documentos.js"></script>
+
+</body>
+
+</html>

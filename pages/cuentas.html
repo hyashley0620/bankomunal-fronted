@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/finanzas.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon"><i class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.cuentas">Mi Cuenta</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-e50689">
+                    <p class="welcome-msg" data-i18n="cuentas.resumen">Consulta tu saldo, número de cuenta y movimientos
+                        recientes.</p>
+                </header>
+
+
+                <div class="cu-kpi-row">
+                    <div class="cu-kpi">
+                        <div class="ck-ic green"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="ck-txt">
+                            <div class="val" id="saldoAhorros">$ 0</div>
+                            <div class="lbl" data-i18n="dashboard.saldo_disponible">Saldo disponible</div>
+                        </div>
+                    </div>
+                    <div class="cu-kpi">
+                        <div class="ck-ic blue"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="ck-txt">
+                            <div class="val" id="kpiIngresosHoy">$ 0</div>
+                            <div class="lbl" data-i18n="cuentas.ingresos_mes">Ingresos este mes</div>
+                        </div>
+                    </div>
+                    <div class="cu-kpi">
+                        <div class="ck-ic orange"><i class="fa-solid fa-arrow-up"></i></div>
+                        <div class="ck-txt">
+                            <div class="val" id="kpiEgresosHoy">$ 0</div>
+                            <div class="lbl" data-i18n="cuentas.egresos_mes">Egresos este mes</div>
+                        </div>
+                    </div>
+                    <div class="cu-kpi">
+                        <div class="ck-ic purple"><i class="fa-solid fa-receipt"></i></div>
+                        <div class="ck-txt">
+                            <div class="val" id="kpiNumMovs">0</div>
+                            <div class="lbl" data-i18n="cuentas.movimientos">Movimientos</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="cu-layout">
+                    <div class="cuenta-card">
+                        <div class="cc-label" data-i18n="cuentas.cuenta_ahorros">Cuenta de Ahorros</div>
+                        <div class="cc-num">
+                            <strong id="numeroCuentaDisplay">BK-000000000</strong>
+                            <button id="btnCopiarCuenta" class="btn-icon u-1e2811" title="Copiar número"
+                                data-i18n-title="cuentas.copiar_numero">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                            <button id="btnCompartirCuenta" class="btn-icon u-1e2811" title="Compartir número"
+                                data-i18n-title="cuentas.compartir_numero">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </button>
+                        </div>
+                        <div class="cc-saldo" id="saldoDisplay">$ 0</div>
+                        <div class="cc-actions">
+                            <a href="transferencias.html" class="btn-primary u-f5f358">
+                                <i class="fa-solid fa-paper-plane"></i> <span
+                                    data-i18n="dashboard.nueva_transferencia_corto">Transferir</span>
+                            </a>
+                            <button id="btnRecibir" class="btn-secondary u-aa269d">
+                                <i class="fa-solid fa-qrcode"></i> <span data-i18n="cuentas.recibir">Recibir</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="qr-card">
+                        <div class="u-1894e6" data-i18n="cuentas.codigo_qr">Código QR</div>
+                        <div id="qrcode" class="u-c1806b"></div>
+                        <button id="btnDescargarQR" class="btn-secondary u-4519be">
+                            <i class="fa-solid fa-download"></i> <span data-i18n="cuentas.guardar_qr">Guardar QR</span>
+                        </button>
+                    </div>
+                </div>
+
+
+                <section class="card">
+                    <div class="u-fd67ed">
+                        <h3 class="u-737ede">
+                            <i class="fa-solid fa-clock-rotate-left u-035cc8"></i> <span
+                                data-i18n="cuentas.movimientos_recientes">Movimientos Recientes</span>
+                        </h3>
+                        <div class="mov-filter">
+                            <button class="mf-btn active" id="filterTodos" data-filter="todos"
+                                data-i18n="common.todos">Todos</button>
+                            <button class="mf-btn" id="filterIngresos" data-filter="ingresos"
+                                data-i18n="cuentas.ingresos">Ingresos</button>
+                            <button class="mf-btn" id="filterEgresos" data-filter="egresos"
+                                data-i18n="cuentas.egresos">Egresos</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="common.tipo">Tipo</th>
+                                    <th data-i18n="common.descripcion">Descripción</th>
+                                    <th data-i18n="common.fecha">Fecha</th>
+                                    <th class="text-right" data-i18n="common.monto">Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaMovimientosCuentas">
+                                <tr>
+                                    <td colspan="4" class="text-center py-20 u-5b795a">
+                                        <i class="fa-solid fa-circle-notch fa-spin"></i> <span
+                                            data-i18n="cuentas.cargando_movimientos">Cargando movimientos...</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="u-85b4be">
+                        <a href="historial.html" class="u-f16e68" data-i18n="cuentas.ver_historial">Ver historial
+                            completo →</a>
+                    </div>
+                </section>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/finanzas.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

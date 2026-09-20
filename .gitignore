@@ -1,0 +1,19 @@
+### IDEs y editores ###
+.idea/
+*.iml
+.vscode/
+!.vscode/extensions.json
+
+### Sistema operativo ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### Node (por si en algún momento se agrega alguna herramienta de build) ###
+node_modules/
+dist/
+
+### Varios ###
+*.tmp
+*.bak
+*.log

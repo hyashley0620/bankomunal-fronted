@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/gestion.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" data-i18n-aria="header.menu"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.auditoria">Auditoría</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+                <header class="content-header u-ece551">
+                    <div>
+                        <p class="welcome-msg" data-i18n="au.resumen">Monitoreo de eventos de seguridad y actividad del
+                            sistema en tiempo real.
+                        </p>
+                    </div>
+                    <button id="btnExportar" class="btn-secondary u-9ee0bb">
+                        <i class="fa-solid fa-file-export"></i> <span data-i18n="au.exportar_datos">Exportar
+                            Datos</span>
+                    </button>
+                </header>
+
+
+                <div class="au-kpi-row">
+                    <div class="au-kpi">
+                        <div class="ak-ic blue"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="ak-txt">
+                            <div class="val" id="countEventos">0</div>
+                            <div class="lbl" data-i18n="au.eventos_hoy">Eventos hoy</div>
+                        </div>
+                    </div>
+                    <div class="au-kpi">
+                        <div class="ak-ic red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="ak-txt">
+                            <div class="val" id="countAlertas">0</div>
+                            <div class="lbl" data-i18n="notif.alertas_criticas">Alertas críticas</div>
+                        </div>
+                    </div>
+                    <div class="au-kpi">
+                        <div class="ak-ic green"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="ak-txt">
+                            <div class="val" id="countExitosos">0</div>
+                            <div class="lbl" data-i18n="au.accesos_exitosos">Accesos exitosos</div>
+                        </div>
+                    </div>
+                    <div class="au-kpi">
+                        <div class="ak-ic yellow"><i class="fa-solid fa-ban"></i></div>
+                        <div class="ak-txt">
+                            <div class="val" id="countFallidos">0</div>
+                            <div class="lbl" data-i18n="seguridad.intentos_fallidos">Intentos fallidos</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <section class="card u-eb1826">
+                    <div class="u-c3b4b5">
+                        <h3 class="u-8c7385">
+                            <i class="fa-solid fa-filter u-035cc8"></i> <span data-i18n="au.filtros">Filtros</span>
+                        </h3>
+                    </div>
+                    <div class="au-filters">
+                        <div>
+                            <label class="u-d20ef6" data-i18n="au.tipo_evento">Tipo de evento</label>
+                            <select id="filtroTipo">
+                                <option value="all" data-i18n="au.todos_registros">Todos los registros</option>
+                                <option value="LOGIN_SUCCESS" data-i18n="seguridad.inicios_sesion">Inicios de sesión
+                                </option>
+                                <option value="LOGIN_FAILED" data-i18n="seguridad.intentos_fallidos">Intentos fallidos
+                                </option>
+                                <option value="TRANSFER" data-i18n="nav.transferencias">Transferencias</option>
+                                <option value="SECURITY" data-i18n="au.alertas_seguridad">Alertas de seguridad</option>
+                                <option value="DATA_CHANGE" data-i18n="au.cambios_datos">Cambios de datos</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="u-d20ef6" data-i18n="au.desde">Desde</label>
+                            <input type="date" id="fechaInicioAudit">
+                        </div>
+                        <div>
+                            <label class="u-d20ef6" data-i18n="au.hasta">Hasta</label>
+                            <input type="date" id="fechaFinAudit">
+                        </div>
+                        <div class="u-3868b5">
+                            <button class="btn-primary u-59b726" id="btnFiltrar">
+                                <i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="au.aplicar">Aplicar</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="card">
+                    <div class="u-6e5fbe">
+                        <span class="u-f3726b" data-i18n="au.registros_auditoria">Registros de Auditoría</span>
+                        <input type="search" id="tableSearch" placeholder="Buscar por usuario o IP..."
+                            data-i18n-placeholder="au.buscar_usuario_ip" class="u-3f4b4b">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="modern-table" id="auditTable">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="seguridad.fecha_hora">Fecha y Hora</th>
+                                    <th data-i18n="admin.usuario">Usuario</th>
+                                    <th data-i18n="au.accion_evento">Acción / Evento</th>
+                                    <th data-i18n="au.ip_dispositivo">IP / Dispositivo</th>
+                                    <th data-i18n="au.nivel">Nivel</th>
+                                    <th data-i18n="common.estado">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="auditLogBody">
+                                <tr>
+                                    <td colspan="6" class="text-center py-20 u-5b795a">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> <span
+                                            data-i18n="au.cargando_registros">Cargando registros...</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer class="main-footer">
+                    <p data-i18n="au.footer_copy">&copy; 2026 Bankomunal. Panel de Control de Seguridad.</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>

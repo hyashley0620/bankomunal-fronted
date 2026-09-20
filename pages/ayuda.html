@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Ayuda | Bankomunal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/soporte.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+</head>
+
+<body class="bg-main">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="app-body">
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <button id="menuToggle" class="btn-icon" data-i18n-aria="header.menu"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <span class="header-title" data-i18n="page.ayuda">Centro de Ayuda</span>
+                </div>
+                <div class="header-right">
+                    <button id="themeBtn" class="btn-icon" title="Cambiar tema" data-i18n-title="header.cambiar_tema"><i
+                            class="fa-solid fa-moon"></i></button>
+                    <div class="notif-wrapper">
+                        <button class="notif-btn" id="notifToggle"><i class="fa-solid fa-bell"></i><span
+                                class="notif-badge hidden" id="notifCount">0</span></button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-text"><span id="nombreUsuario" class="user-name">Cargando...</span><small
+                                id="rolUsuario" class="user-role">...</small></div>
+                        <div id="avatarUsuario" class="avatar-circle">--</div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-wrapper">
+
+                <div class="help-hero">
+                    <h2 data-i18n="ayuda.como_ayudamos">¿Cómo podemos ayudarte hoy?</h2>
+                    <p data-i18n="ayuda.encuentra_respuestas">Encuentra respuestas, guías y soporte especializado para
+                        Bankomunal.</p>
+                    <div class="help-search-wrap">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="faqSearch" placeholder="Busca sobre claves, préstamos, transferencias..."
+                            data-i18n-placeholder="ayuda.busca_sobre">
+                    </div>
+                </div>
+
+
+                <div class="help-kpi-row">
+                    <div class="help-kpi">
+                        <div class="hv">24/7</div>
+                        <div class="hl" data-i18n="ayuda.soporte_activo">Soporte activo</div>
+                    </div>
+                    <div class="help-kpi">
+                        <div class="hv">12</div>
+                        <div class="hl" data-i18n="ayuda.articulos_faq">Artículos FAQ</div>
+                    </div>
+                    <div class="help-kpi">
+                        <div class="hv u-deccf9">
+                            2h</div>
+                        <div class="hl" data-i18n="ayuda.tiempo_respuesta">Tiempo respuesta</div>
+                    </div>
+                    <div class="help-kpi">
+                        <div class="hv">99.9%</div>
+                        <div class="hl" data-i18n="ayuda.uptime_sistema">Uptime sistema</div>
+                    </div>
+                </div>
+
+                <div class="help-layout">
+
+                    <div>
+                        <div class="u-c3b4b5">
+                            <h2 class="u-07c5dc" data-i18n="ayuda.soluciones_frecuentes">Soluciones Frecuentes</h2>
+                            <span class="status-pill st-success" data-i18n="ayuda.soporte_24_7">Soporte 24/7
+                                activo</span>
+                        </div>
+                        <div class="faq-cats">
+                            <button class="fcat-btn active" data-cat="todas" data-i18n="common.todos">Todas</button>
+                            <button class="fcat-btn" data-cat="cuenta" data-i18n="ayuda.mi_cuenta">Mi Cuenta</button>
+                            <button class="fcat-btn" data-cat="prestamos" data-i18n="nav.prestamos">Préstamos</button>
+                            <button class="fcat-btn" data-cat="pagos" data-i18n="ayuda.pagos">Pagos</button>
+                            <button class="fcat-btn" data-cat="seguridad" data-i18n="nav.seguridad">Seguridad</button>
+                        </div>
+
+                        <div id="faqAccordion">
+                            <details class="faq-item" data-cat="seguridad">
+                                <summary><span><i class="fa-solid fa-key u-10878f"></i> <span
+                                            data-i18n="ayuda.faq1_pregunta">¿Cómo restablezco mi
+                                            contraseña?</span></span><i class="fa-solid fa-chevron-down faq-icon"></i>
+                                </summary>
+                                <div class="faq-body" data-i18n-html="ayuda.faq1_respuesta">Ve a la pantalla de inicio,
+                                    selecciona <strong>"¿Olvidaste tu
+                                        contraseña?"</strong> e ingresa tu correo. Recibirás un código de
+                                    verificación para crear una nueva contraseña segura.</div>
+                            </details>
+                            <details class="faq-item" data-cat="prestamos">
+                                <summary><span><i class="fa-solid fa-clock u-10878f"></i> <span
+                                            data-i18n="ayuda.faq2_pregunta">¿Cuánto tarda la
+                                            aprobación de un crédito?</span></span><i
+                                        class="fa-solid fa-chevron-down faq-icon"></i></summary>
+                                <div class="faq-body" data-i18n-html="ayuda.faq2_respuesta">El comité de microfinanzas
+                                    revisa solicitudes en <strong>24 a
+                                        48 horas hábiles</strong>. Recibirás una notificación al correo cuando el
+                                    estado cambie.</div>
+                            </details>
+                            <details class="faq-item" data-cat="seguridad">
+                                <summary><span><i class="fa-solid fa-shield-halved u-10878f"></i> <span
+                                            data-i18n="ayuda.faq3_pregunta">¿Qué tan seguro es
+                                            Bankomunal?</span></span><i class="fa-solid fa-chevron-down faq-icon"></i>
+                                </summary>
+                                <div class="faq-body" data-i18n-html="ayuda.faq3_respuesta">Usamos <strong>cifrado SSL
+                                        256 bits</strong>, autenticación en
+                                    dos pasos (2FA), sesión única por usuario y bloqueo automático tras 5 intentos
+                                    fallidos.</div>
+                            </details>
+                            <details class="faq-item" data-cat="pagos">
+                                <summary><span><i class="fa-solid fa-money-bill-wave u-10878f"></i> <span
+                                            data-i18n="ayuda.faq4_pregunta">¿Las
+                                            transferencias son inmediatas?</span></span><i
+                                        class="fa-solid fa-chevron-down faq-icon"></i></summary>
+                                <div class="faq-body" data-i18n-html="ayuda.faq4_respuesta">Sí. Las transferencias entre
+                                    cuentas Bankomunal son
+                                    <strong>inmediatas</strong>. Para cuentas externas, el tiempo puede variar entre
+                                    1-24 horas según el banco destino.
+                                </div>
+                            </details>
+                            <details class="faq-item" data-cat="cuenta">
+                                <summary><span><i class="fa-solid fa-user-gear u-10878f"></i> <span
+                                            data-i18n="ayuda.faq5_pregunta">¿Cómo actualizo mis
+                                            datos personales?</span></span><i
+                                        class="fa-solid fa-chevron-down faq-icon"></i>
+                                </summary>
+                                <div class="faq-body" data-i18n-html="ayuda.faq5_respuesta">Ve a <a href="perfil.html"
+                                        class="u-035cc8">Mi Perfil</a> o <a href="configuracion.html"
+                                        class="u-035cc8">Configuración</a> y edita los
+                                    campos que desees. Algunos cambios requieren verificación de identidad.</div>
+                            </details>
+                            <details class="faq-item" data-cat="prestamos">
+                                <summary><span><i class="fa-solid fa-calculator u-10878f"></i> <span
+                                            data-i18n="ayuda.faq6_pregunta">¿Cómo calculo mi
+                                            cuota mensual?</span></span><i
+                                        class="fa-solid fa-chevron-down faq-icon"></i>
+                                </summary>
+                                <div class="faq-body" data-i18n-html="ayuda.faq6_respuesta">Usa el <a
+                                        href="simulador-credito.html" class="u-035cc8">Simulador de Crédito</a> para
+                                    calcular tu cuota según el
+                                    monto, plazo y tasa de interés de forma automática.</div>
+                            </details>
+                        </div>
+
+                        <div class="card u-7b3b69">
+                            <div class="u-36fb5f">
+                                <div>
+                                    <strong class="u-58180d" data-i18n="ayuda.transparencia_bankomunal">Transparencia
+                                        Bankomunal</strong>
+                                    <p class="u-158f07" data-i18n="ayuda.consulta_derechos">Consulta los derechos y
+                                        deberes como socio de nuestra
+                                        comunidad.</p>
+                                </div>
+                                <button class="btn-secondary u-9ee0bb" id="openTerms">
+                                    <i class="fa-solid fa-file-contract"></i> <span
+                                        data-i18n="ayuda.terminos_condiciones">Términos y Condiciones</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <aside>
+                        <div class="card u-9590f7">
+                            <div class="u-9c7061">
+                                <div class="u-83018d">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <h3 class="u-ab2b24" data-i18n="ayuda.soporte_directo">Soporte Directo</h3>
+                                <p class="u-130f3c" data-i18n="ayuda.habla_asesor">Habla con un asesor humano en tiempo
+                                    real.</p>
+                                <a href="chat-soporte.html" class="btn-primary u-c63830">
+                                    <i class="fa-solid fa-comments"></i> <span data-i18n="ayuda.iniciar_chat">Iniciar
+                                        Chat</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="card u-9590f7">
+                            <h4 class="u-90c301"><i class="fa-solid fa-phone u-035cc8"></i> <span
+                                    data-i18n="ayuda.otros_canales">Otros Canales</span></h4>
+                            <div class="u-f21e02">
+                                <div><i class="fa-solid fa-envelope u-fea6a7"></i> soporte@bankomunal.com</div>
+                                <div><i class="fa-solid fa-phone u-fea6a7"></i> 601 234 5678</div>
+                                <div><i class="fa-brands fa-whatsapp u-b4c4bd"></i> +57 315 678 9012</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h4 class="u-4df31a"><i class="fa-solid fa-shield-check u-deccf9"></i> <span
+                                    data-i18n="ayuda.tips_seguridad">Tips de Seguridad</span>
+                            </h4>
+                            <ul class="u-273d36">
+                                <li><i class="fa-solid fa-check u-fa9d99"></i> <span data-i18n="ayuda.tip1">No compartas
+                                        tus claves</span></li>
+                                <li><i class="fa-solid fa-check u-fa9d99"></i> <span data-i18n="ayuda.tip2">Activa el
+                                        doble factor (2FA)</span></li>
+                                <li><i class="fa-solid fa-check u-fa9d99"></i> <span data-i18n="ayuda.tip3">Usa
+                                        contraseñas únicas</span></li>
+                                <li><i class="fa-solid fa-check u-fa9d99"></i> <span data-i18n="ayuda.tip4">Reporta
+                                        actividad inusual</span></li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+
+                <footer class="main-footer">
+                    <p data-i18n="dashboard.footer_copy">&copy; 2026 Bankomunal. Gestión de Microfinanzas Comunitarias.
+                    </p>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div id="toast" class="toast-container"></div>
+
+    <div id="termsModal" class="modal-overlay hidden">
+        <div class="modal-card u-3c1e4f">
+            <div class="modal-header u-3ea78e">
+                <h3><i class="fa-solid fa-file-contract"></i> <span data-i18n="ayuda.terminos_condiciones">Términos y
+                        Condiciones</span></h3>
+                <button id="closeTerms" class="btn-close">&times;</button>
+            </div>
+            <div class="modal-body u-72bb17">
+                <h4 class="u-14f709" data-i18n="ayuda.t1_titulo">1. Aceptación de Términos</h4>
+                <p class="u-9590f7" data-i18n="ayuda.t1_texto">Al registrarse en Bankomunal, el usuario acepta estos
+                    términos. La plataforma
+                    facilita el ahorro colectivo y créditos grupales.</p>
+                <h4 class="u-14f709" data-i18n="ayuda.t2_titulo">2. Uso del Servicio</h4>
+                <p class="u-9590f7" data-i18n="ayuda.t2_texto">Los usuarios se comprometen a proporcionar información
+                    veraz y mantener la
+                    confidencialidad de sus credenciales.</p>
+                <h4 class="u-14f709" data-i18n="ayuda.t3_titulo">3. Privacidad y Datos</h4>
+                <p class="u-9590f7" data-i18n="ayuda.t3_texto">Bankomunal protege datos personales conforme a la Ley
+                    1581 de 2012 (Colombia).</p>
+                <h4 class="u-14f709" data-i18n="ayuda.t4_titulo">4. Transacciones</h4>
+                <p data-i18n="ayuda.t4_texto">Las transferencias son procesadas en tiempo real. Bankomunal no se
+                    responsabiliza por errores
+                    causados por información incorrecta del usuario.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="acceptTerms" class="btn-primary u-6d5673"><i class="fa-solid fa-check"></i>
+                    <span data-i18n="ayuda.entendido">Entendido</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Widget flotante de soporte (chat virtual + WhatsApp) -->
+    <div class="support-fab-wrapper">
+        <div id="floatOptions" class="support-fab-options">
+            <a href="https://wa.me/573001234567" target="_blank" rel="noopener" class="whatsapp-btn">
+                <i class="fa-brands fa-whatsapp"></i> <span data-i18n="sop.whatsapp">WhatsApp</span>
+            </a>
+            <button id="openChatVirtual" type="button">
+                <i class="fa-solid fa-robot"></i> <span data-i18n="sop.chat_virtual">Chat Virtual</span>
+            </button>
+        </div>
+        <button id="toggleChat" type="button" class="support-fab" aria-label="Soporte"
+            data-i18n-aria="nav.soporte_tecnico">
+            <i id="toggleIcon" class="fa-solid fa-headset"></i>
+        </button>
+    </div>
+
+    <div id="chatPopup" class="support-chat-popup">
+        <div class="support-chat-header">
+            <h4><i class="fa-solid"></i> <span data-i18n="sop.asistente_virtual">Asistente Virtual</span></h4>
+            <button id="closeChat" type="button" aria-label="Cerrar">&times;</button>
+        </div>
+        <div id="chatContent" class="support-chat-body">
+            <div class="bubble-wrapper bot">
+                <div class="bubble" data-i18n="sop.bienvenida_bot">¡Hola! Soy el asistente virtual de Bankomunal.
+                    Pregúntame sobre transferencias,
+                    préstamos, pagos.</div>
+            </div>
+        </div>
+        <div class="support-chat-footer">
+            <input type="text" id="chatInput" placeholder="Escribe tu pregunta..."
+                data-i18n-placeholder="sop.escribe_pregunta">
+            <button id="sendChat" type="button" aria-label="Enviar"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/core.js"></script>
+    <script src="../js/panel.js"></script>
+    <script src="../js/soporte.js"></script>
+    <script src="../js/paginas.js"></script>
+</body>
+
+</html>
